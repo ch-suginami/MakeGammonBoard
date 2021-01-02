@@ -68,6 +68,7 @@ def print_circle(pos, num, own, im, drawing):
         drawing.ellipse((WIDTH-PNT_WIDTH*(pos+1)+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH-PNT_WIDTH*pos-MARGIN, HEIGHT-RADIUS*i), fill = CH_GRAY, outline = BLACK, width = 3)
       else:
         print("Something wrong!")
+        dummy = input()
         sys.exit()
   elif 7 <= pos and pos < 13:
     for i in range(num):
@@ -81,6 +82,7 @@ def print_circle(pos, num, own, im, drawing):
         drawing.ellipse((WIDTH//2-(pos-5)*PNT_WIDTH+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH//2-(pos-6)*PNT_WIDTH-MARGIN, HEIGHT-RADIUS*i), fill = CH_GRAY, outline = BLACK, width = 3)
       else:
         print("Something wrong!")
+        dummy = input()
         sys.exit()
   elif 13 <= pos and pos < 19:
     for i in range(num):
@@ -94,6 +96,7 @@ def print_circle(pos, num, own, im, drawing):
         drawing.ellipse(((pos-13)*PNT_WIDTH+MARGIN, RADIUS*i, (pos-12)*PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill = CH_GRAY, outline = BLACK, width = 3)
       else:
         print("Something wrong!")
+        dummy = input()
         sys.exit()
   elif 19 <= pos and pos < 25:
     for i in range(num):
@@ -107,6 +110,7 @@ def print_circle(pos, num, own, im, drawing):
         drawing.ellipse((WIDTH//2+(pos-19)*PNT_WIDTH+MARGIN, RADIUS*i, WIDTH//2+(pos-18)*PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill = CH_GRAY, outline = BLACK, width = 3)
       else:
         print("Something wrong!")
+        dummy = input()
         sys.exit()
   elif pos == 25:
     drawing.ellipse((WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//4-PNT_WIDTH//2+MARGIN, WIDTH//2-MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill = WHITE, outline = BLACK, width = 3)
@@ -131,11 +135,15 @@ def draw_pos(XGID, im, drawing):
         drawing = print_circle(i, ch_num, "b", im, drawing)
       else:
         print("Error at XGID positions.")
+        dummy = input()
         sys.exit()
   if top_num < 0:
     print("Too small checkers for the top-player!")
+    dummy = input()
+    sys.exit()
   elif bottom_num < 0:
     print("Too small checkers for the bottom-player!")
+    dummy = input()
   else:
     if top_num > 0:
       drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4, WIDTH-MARGIN, HEIGHT//4+RADIUS), fill = CH_GRAY, outline = BLACK, width = 3)
@@ -166,6 +174,7 @@ def draw_cube(XGID, im, drawing):
     return drawing
   else:
     print("Doubling cube Error")
+    dummy = input()
     sys.exit()
 
 def draw_dice(XGID, im, drawing):
@@ -176,9 +185,11 @@ def draw_dice(XGID, im, drawing):
     dice2 = XGID[4][1]
     if not (0 < int(dice1) and int(dice1) < 7):
       print("Cube1 number Error")
+      dummy = input()
       sys.exit()
     if not (0 < int(dice2) and int(dice2) < 7):
       print("Cube2 number Error")
+      dummy = input()
       sys.exit()
     dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
     dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
@@ -194,9 +205,11 @@ def draw_dice(XGID, im, drawing):
     dice2 = XGID[4][1]
     if not (0 < int(dice1) and int(dice1) < 7):
       print("Cube1 number Error")
+      dummy = input()
       sys.exit()
     if not (0 < int(dice2) and int(dice2) < 7):
       print("Cube2 number Error")
+      dummy = input()
       sys.exit()
     dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
     dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
@@ -207,28 +220,19 @@ def draw_dice(XGID, im, drawing):
     return drawing
   else:
     print("Turn Error")
+    dummy = input()
     sys.exit()
+
+print(f'Input XGID:')
+XGID = input()
 
 im = Image.new('RGB',(WIDTH, HEIGHT), WHITE)
 draw = ImageDraw.Draw(im)
-
-args = sys.argv
-
-if len(args) != 2:
-  print("Must input XGID!")
-  sys.exit()
-
-XGID = args[1]
 
 if XGID[0:5] == "XGID=":
   XGID = XGID[5:]
 
 XGID = XGID.split(":")
-
-# checking correct XGID
-if len(XGID) != 10:
-  print("Incorrect XGID!")
-  sys.exit()
 
 draw = draw_base(draw)
 draw = draw_pos(XGID, im, draw)
@@ -258,3 +262,5 @@ else:
   craw = ""
 
 print(f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}')
+print(f"Output Completed!")
+dummy = input()
