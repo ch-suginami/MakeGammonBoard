@@ -3,9 +3,10 @@
 
 ただし画像サイズは`1400x1200`ピクセルで固定であり、変更はできません。
 
-![board](gammon.png)
+![board](gammon_sample.png)
 
-![board2](gammon2.png)
+キューブ提示も示せるようになりました。(v1.1以降)
+![board2](gammon_sample2.png)
 
 # 実行方法
 ## Windowsの場合
