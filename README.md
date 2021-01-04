@@ -3,9 +3,14 @@
 
 ただし画像サイズは`1400x1200`ピクセルで固定であり、変更はできません。
 
+`XGID=-BBBaBC---aaB------dcbc--B:2:1:1:32:0:0:0:7:10`
+
 ![board](gammon_sample.png)
 
 キューブ提示も示せるようになりました。(v1.1以降)
+
+`XGID=--Ca-BBBBa--b-B----cbBf---:2:1:1:DD:0:0:0:5:3`
+
 ![board2](gammon_sample2.png)
 
 # 実行方法
