@@ -1,7 +1,7 @@
 from PIL import Image,ImageDraw
 
 import sys
-import string
+import base64
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
@@ -15,6 +15,7 @@ BOARD_GREY = (77, 77, 77)
 RADIUS = 80
 PNT_WIDTH = 100
 MARGIN = (PNT_WIDTH -RADIUS) // 2
+GNU_POS = 10
 
 def draw_base(drawing):
   # each positions
@@ -156,22 +157,52 @@ def draw_pos(XGID, im, drawing):
   return drawing
 
 def draw_cube(XGID, im, drawing):
-  if int(XGID[2]) == 0:
-    num_im = Image.open(num_image + "64.png")
-    num_im = num_im.rotate(90)
-    im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = num_im)
-    return drawing
-  elif int(XGID[2]) == 1:
+  if int(XGID[3]) == 1:
     cube_num = 2**(int(XGID[1]))
-    num_im = Image.open(num_image + str(cube_num) + ".png")
-    im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT-PNT_WIDTH+MARGIN), mask = num_im)
-    return drawing
-  elif int(XGID[2]) == -1:
+    # show double
+    if XGID[4] == "DD":
+      cube_num = 2**(int(XGID[1])+1)
+      d_dice = Image.open(num_image + str(cube_num) + ".png")
+      d_dice = d_dice.rotate(180)
+      drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill = WHITE, outline = BLACK, width = 5)
+      im.paste(d_dice, (int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = d_dice)
+      return drawing
+    if int(XGID[2]) == 1:
+      num_im = Image.open(num_image + str(cube_num) + ".png")
+      im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT-PNT_WIDTH+MARGIN), mask = num_im)
+      return drawing
+    elif int(XGID[2]) == -1:
+      num_im = Image.open(num_image + str(cube_num) + ".png")
+      num_im = num_im.rotate(180)
+      im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, MARGIN), mask = num_im)
+      return drawing
+    elif int(XGID[2]) == 0:
+      num_im = Image.open(num_image + "64.png")
+      num_im = num_im.rotate(90)
+      im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = num_im)
+      return drawing
+  elif int(XGID[3]) == -1:
     cube_num = 2**(int(XGID[1]))
-    num_im = Image.open(num_image + str(cube_num) + ".png")
-    num_im = num_im.rotate(180)
-    im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, MARGIN), mask = num_im)
-    return drawing
+    if XGID[4] == "DD":
+      cube_num = 2**(int(XGID[1])+1)
+      d_dice = Image.open(num_image + str(cube_num) + ".png")
+      drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill = WHITE, outline = BLACK, width = 5)
+      im.paste(d_dice, (WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = d_dice)
+      return drawing
+    if int(XGID[2]) == 1:
+      num_im = Image.open(num_image + str(cube_num) + ".png")
+      im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT-PNT_WIDTH+MARGIN), mask = num_im)
+      return drawing
+    elif int(XGID[2]) == -1:
+      num_im = Image.open(num_image + str(cube_num) + ".png")
+      num_im = num_im.rotate(180)
+      im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, MARGIN), mask = num_im)
+      return drawing
+    elif int(XGID[2]) == 0:
+      num_im = Image.open(num_image + "64.png")
+      num_im = num_im.rotate(90)
+      im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = num_im)
+      return drawing
   else:
     print("Doubling cube Error")
     dummy = input()
@@ -179,16 +210,20 @@ def draw_cube(XGID, im, drawing):
 
 def draw_dice(XGID, im, drawing):
   if int(XGID[3]) == 1:
+    # no cide
     if XGID[4] == "00":
+      return drawing
+    # doubling -> pass
+    elif XGID[4] == "DD":
       return drawing
     dice1 = XGID[4][0]
     dice2 = XGID[4][1]
     if not (0 < int(dice1) and int(dice1) < 7):
-      print("Cube1 number Error")
+      print("Error: Cube1 number.")
       dummy = input()
       sys.exit()
     if not (0 < int(dice2) and int(dice2) < 7):
-      print("Cube2 number Error")
+      print("Error: Cube2 number.")
       dummy = input()
       sys.exit()
     dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
@@ -201,14 +236,17 @@ def draw_dice(XGID, im, drawing):
   elif int(XGID[3]) == -1:
     if XGID[4] == "00":
       return drawing
+    # doubling -> pass
+    elif XGID[4] == "DD":
+      return drawing
     dice1 = XGID[4][0]
     dice2 = XGID[4][1]
     if not (0 < int(dice1) and int(dice1) < 7):
-      print("Cube1 number Error")
+      print("Error: Cube1 number.")
       dummy = input()
       sys.exit()
     if not (0 < int(dice2) and int(dice2) < 7):
-      print("Cube2 number Error")
+      print("Error: Cube2 number.")
       dummy = input()
       sys.exit()
     dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
@@ -219,18 +257,57 @@ def draw_dice(XGID, im, drawing):
     im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask = dice2_im)
     return drawing
   else:
-    print("Turn Error")
+    print("Error: Tern incorrect.")
     dummy = input()
     sys.exit()
 
+'''
+def gnuID2XGID(gnu):
+  new_bgID = [_ for _ in range(GNU_POS)]
+  encoded_ID = [_ for _ in range(14)]
+  hex_ID = ""
+  binary_str = ""
+  bgID = [gnu[0:8], gnu[8:16], gnu[16:24], gnu[24:32], gnu[32:40], gnu[40:48], gnu[48:56], gnu[56:64], gnu[64:72], gnu[72:80]]
+  for i in range(GNU_POS):
+    bgID[i] = "".join(list(reversed(bgID[i])))
+    new_bgID[i] = hex(int(str(bgID[i]), 2))
+  for i in range(GNU_POS):
+    if len(new_bgID[i]) == 4:
+      hex_ID += new_bgID[i][2:4]
+    else:
+      hex_ID += "0" + new_bgID[i][2]
+  for i in range(GNU_POS):
+    bin_num = "".join(bgID)
+  for i in range(14):
+    encoded_ID = [bin_num[0:6], bin_num[6:12], bin_num[12:18], bin_num[18:24], bin_num[24:30], bin_num[30:36], bin_num[36:42], bin_num[42:48], bin_num[48:54], bin_num[54:60], bin_num[60:66], bin_num[66:72], bin_num[72:78], bin_num[78:] + "0000"]
+  for i in range(len(encoded_ID)):
+    encoded_ID[i] = hex(int(str(encoded_ID[i]),2))
+    binary_str += base64.b64encode((encoded_ID[i]).decode())
+  return encoded_ID
+'''
+
+XGID = ""
+
 print(f'Input XGID:')
-XGID = input()
+inputID = input()
 
 im = Image.new('RGB',(WIDTH, HEIGHT), WHITE)
 draw = ImageDraw.Draw(im)
 
-if XGID[0:5] == "XGID=":
-  XGID = XGID[5:]
+if inputID[0:5] == "XGID=":
+  XGID = inputID[5:]
+elif inputID[0:5] == "bgID=":
+  pass
+#  XGID = gnuID2XGID(inputID[5:])
+else:
+  print("ID形式を指定してください([XGID] or [bgID]")
+  sys.exit("Error: Turn Incorrect.")
+
+'''
+# for debug
+print(XGID)
+sys.exit()
+'''
 
 XGID = XGID.split(":")
 
@@ -239,8 +316,15 @@ draw = draw_pos(XGID, im, draw)
 draw = draw_cube(XGID, im, draw)
 draw = draw_dice(XGID, im, draw)
 
-im_base = Image.open(num_image + "pos.png")
-im_base.paste(im, (0, PNT_WIDTH))
+if int(XGID[3]) == 1:
+  im_base = Image.open(num_image + "pos.png")
+  im_base.paste(im, (0, PNT_WIDTH))
+elif int(XGID[3]) == -1:
+  im_base = Image.open(num_image + "pos2.png")
+  im_base.paste(im, (0, PNT_WIDTH))
+else:
+  print("Error: Trun incorrect.")
+  sys.exit()
 
 im_base.save("gammon.png", quality = 95)
 
