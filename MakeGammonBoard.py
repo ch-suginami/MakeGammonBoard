@@ -1,11 +1,12 @@
 from PIL import Image,ImageDraw
 
 import sys
-import base64
+import string
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
 num_image = "number/"
+POINTS = 25
 WIDTH = 1400
 HEIGHT = 1000
 BLACK = (0, 0, 0)
@@ -16,6 +17,31 @@ RADIUS = 80
 PNT_WIDTH = 100
 MARGIN = (PNT_WIDTH -RADIUS) // 2
 GNU_POS = 10
+GNU_MATCH = 9
+
+def encode_base64(num):
+  BASE64_LIST = []
+  for i in string.ascii_uppercase:
+    BASE64_LIST.append(i)
+  for i in string.ascii_lowercase:
+    BASE64_LIST.append(i)
+  for i in range(0,10):
+    BASE64_LIST.append(str(i))
+  BASE64_LIST.append("+")
+  BASE64_LIST.append("/")
+  return BASE64_LIST[num]
+
+def decode_base64(let):
+  BASE64_LIST = []
+  for i in string.ascii_uppercase:
+    BASE64_LIST.append(i)
+  for i in string.ascii_lowercase:
+    BASE64_LIST.append(i)
+  for i in range(0,10):
+    BASE64_LIST.append(str(i))
+  BASE64_LIST.append("+")
+  BASE64_LIST.append("/")
+  return (str(bin(BASE64_LIST.index(let)))[2:]).zfill(6)
 
 def draw_base(drawing):
   # each positions
@@ -261,53 +287,176 @@ def draw_dice(XGID, im, drawing):
     dummy = input()
     sys.exit()
 
-'''
-def gnuID2XGID(gnu):
-  new_bgID = [_ for _ in range(GNU_POS)]
+def gnubg2posID(gnu):
+#  new_bgID = [_ for _ in range(GNU_POS)]
   encoded_ID = [_ for _ in range(14)]
-  hex_ID = ""
+#  hex_ID = ""
   binary_str = ""
   bgID = [gnu[0:8], gnu[8:16], gnu[16:24], gnu[24:32], gnu[32:40], gnu[40:48], gnu[48:56], gnu[56:64], gnu[64:72], gnu[72:80]]
   for i in range(GNU_POS):
     bgID[i] = "".join(list(reversed(bgID[i])))
-    new_bgID[i] = hex(int(str(bgID[i]), 2))
-  for i in range(GNU_POS):
-    if len(new_bgID[i]) == 4:
-      hex_ID += new_bgID[i][2:4]
-    else:
-      hex_ID += "0" + new_bgID[i][2]
+#    new_bgID[i] = hex(int(str(bgID[i]), 2))
+#  for i in range(GNU_POS):
+#    if len(new_bgID[i]) == 4:
+#      hex_ID += new_bgID[i][2:4]
+#    else:
+#      hex_ID += "0" + new_bgID[i][2]
   for i in range(GNU_POS):
     bin_num = "".join(bgID)
+  encoded_ID = [int(bin_num[0:6], 2), int(bin_num[6:12], 2), int(bin_num[12:18], 2), int(bin_num[18:24], 2), int(bin_num[24:30], 2), int(bin_num[30:36], 2), int(bin_num[36:42], 2), int(bin_num[42:48], 2), int(bin_num[48:54], 2), int(bin_num[54:60], 2), int(bin_num[60:66], 2), int(bin_num[66:72], 2), int(bin_num[72:78], 2), int(bin_num[78:] + "0000", 2)]
   for i in range(14):
-    encoded_ID = [bin_num[0:6], bin_num[6:12], bin_num[12:18], bin_num[18:24], bin_num[24:30], bin_num[30:36], bin_num[36:42], bin_num[42:48], bin_num[48:54], bin_num[54:60], bin_num[60:66], bin_num[66:72], bin_num[72:78], bin_num[78:] + "0000"]
-  for i in range(len(encoded_ID)):
-    encoded_ID[i] = hex(int(str(encoded_ID[i]),2))
-    binary_str += base64.b64encode((encoded_ID[i]).decode())
-  return encoded_ID
-'''
+    binary_str += encode_base64(encoded_ID[i])
+  return binary_str
+
+def gnubg2matchID(gnu):
+  encoded_ID = [_ for _ in range(14)]
+  binary_str = ""
+  bgID = [gnu[0:8], gnu[8:16], gnu[16:24], gnu[24:32], gnu[32:40], gnu[40:48], gnu[48:56], gnu[56:64], (gnu[64:67] + "000000")]
+  for i in range(GNU_MATCH):
+    bgID[i] = "".join(list(reversed(bgID[i])))
+  bin_num = "".join(bgID)
+  encoded_ID = [int(bin_num[0:6], 2), int(bin_num[6:12], 2), int(bin_num[12:18], 2), int(bin_num[18:24], 2), int(bin_num[24:30], 2), int(bin_num[30:36], 2), int(bin_num[36:42], 2), int(bin_num[42:48], 2), int(bin_num[48:54], 2), int(bin_num[54:60], 2), int(bin_num[60:66], 2), int(bin_num[66:73], 2)]
+  for i in range(12):
+    binary_str += encode_base64(encoded_ID[i])
+  return binary_str
+
+def posID2XGID(gnu):
+  binary_str = ""
+  turn = False
+  pos_checker = ["" for _ in range(POINTS+1)]
+  oppo_checker = [0 for _ in range(POINTS)]
+  your_checker = [0 for _ in range(POINTS)]
+  for i in range(len(gnu)):
+    binary_str += decode_base64(gnu[i])
+  bgID = [binary_str[0:8], binary_str[8:16], binary_str[16:24], binary_str[24:32], binary_str[32:40], binary_str[40:48], binary_str[48:56], binary_str[56:64], binary_str[64:72], binary_str[72:80]]
+  for i in range(GNU_POS):
+    bgID[i] = "".join(list(reversed(bgID[i])))
+  bin_num = "".join(bgID)
+  pos = 0
+  cnt = 0
+  while True:
+    if pos == POINTS:
+      pos = 0
+      turn = True
+    if int(bin_num[cnt]) == 0:
+      pos += 1
+      cnt += 1
+    else:
+      while int(bin_num[cnt]):
+        if not turn:
+          oppo_checker[pos] += 1
+        else:
+          your_checker[pos] += 1
+        cnt += 1
+      cnt += 1
+      pos += 1
+    if cnt == len(bin_num):
+      break
+  for i in range(POINTS):
+    if your_checker[i]:
+      pos_checker[i+1] = bottom_p[your_checker[i]-1]
+  for i in range(POINTS):
+    if oppo_checker[i]:
+      pos_checker[POINTS-i-1] = top_p[oppo_checker[i]-1]
+  for i in range(POINTS+1):
+    if not pos_checker[i]:
+      pos_checker[i] = "-"
+  pos_checker = "".join(pos_checker) + ":"
+  return pos_checker
+
+def matchID2XGID(gnu):
+  binary_str = ""
+  score_str = ""
+  for i in range(len(gnu)):
+    binary_str += decode_base64(gnu[i])
+  bgID = [binary_str[0:8], binary_str[8:16], binary_str[16:24], binary_str[24:32], binary_str[32:40], binary_str[40:48], binary_str[48:56], binary_str[56:64], binary_str[64:]]
+  for i in range(GNU_MATCH):
+    bgID[i] = "".join(list(reversed(bgID[i])))
+  bin_num = "".join(bgID)
+
+  cube = '0b' + "".join(list(reversed(bin_num[0:4])))
+  cube = int(cube, 0)
+  cube_own = bin_num[4:6]
+  turn = int(bin_num[6])
+  craw = bin_num[7]
+#  cond = bin_num[8:11]
+#  cube_judge = bin_num[11]
+  double = int(bin_num[12])
+#  resign = bin_num[13:15]
+  dice1 = '0b' + "".join(list(reversed(bin_num[15:18])))
+  dice1 = int(dice1, 0)
+  dice2 = '0b' + "".join(list(reversed(bin_num[18:21])))
+  dice2 = int(dice2, 0)
+  m_length = '0b' + "".join(list(reversed(bin_num[21:36])))
+  m_length = int(m_length, 0)
+  score_you = '0b' + "".join(list(reversed(bin_num[36:51])))
+  score_you = int(score_you, 0)
+  score_oppo = '0b' + "".join(list(reversed(bin_num[51:66])))
+  score_oppo = int(score_oppo, 0)
+
+  score_str += str(cube) + ":"
+
+  if cube_own == "11":
+    score_str += "0:"
+  elif cube_own == "01":
+    score_str += "1:"
+  elif cube_own == "00":
+    score_str += "-1:"
+
+  if turn == 0:
+    score_str += "-1:"
+  else:
+    score_str += "1:"
+
+  if double:
+    score_str += "DD:"
+  else:
+    score_str += str(dice1) + str(dice2) + ":"
+
+  score_str += str(score_you) + ":" + str(score_oppo) + ":"
+
+  score_str += str(craw) + ":"
+
+  score_str += str(m_length) + ":"
+
+  score_str += "9"
+
+  return score_str
 
 XGID = ""
 
-print(f'Input XGID:')
+print(f'Input ID:')
 inputID = input()
 
 im = Image.new('RGB',(WIDTH, HEIGHT), WHITE)
 draw = ImageDraw.Draw(im)
 
+judge = inputID.split(":")
+
 if inputID[0:5] == "XGID=":
   XGID = inputID[5:]
 elif inputID[0:5] == "bgID=":
-  pass
-#  XGID = gnuID2XGID(inputID[5:])
+  judge = inputID[5:].split(":")
+  XGID = posID2XGID(judge[0])
+  XGID += matchID2XGID(judge[1])
+  judge = XGID.split(":")
+  if judge[3] == "-1":
+    rev_pos = "".join(list(reversed(judge[0])))
+    judge[0] = rev_pos.swapcase()
+  XGID = ":".join(judge)
+elif len(judge) == 2:
+  XGID = posID2XGID(judge[0])
+  XGID += matchID2XGID(judge[1])
+  judge = XGID.split(":")
+  if judge[3] == "-1":
+    rev_pos = "".join(list(reversed(judge[0])))
+    judge[0] = rev_pos.swapcase()
+  XGID = ":".join(judge)
+elif len(judge) == 10:
+  XGID = inputID
 else:
   print("ID形式を指定してください([XGID] or [bgID]")
   sys.exit("Error: Turn Incorrect.")
-
-'''
-# for debug
-print(XGID)
-sys.exit()
-'''
 
 XGID = XGID.split(":")
 
