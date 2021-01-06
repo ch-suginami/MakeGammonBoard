@@ -15,19 +15,32 @@
 
 # 実行方法
 ## Windowsの場合
-MakeGammonBoard.exeをダブルクリックなどで起動すると、別画面が出てきて`Input XGID`と表示されます。
+MakeGammonBoard.exeをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
 
-次のセクションを参考にXGIDを入力してください。
+~~次のセクションを参考にXGIDを入力してください。~~
+
+→バージョン1.20よりgnubgのgnuIDにも対応しました。
 
 ## Macの場合
-MakeGammonBoardをダブルクリックなどで起動すると、別画面が出てきて`Input XGID`と表示されます。
+MakeGammonBoardをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
 
-次のセクションを参考にXGIDを入力してください。
+~~次のセクションを参考にXGIDを入力してください。~~
+
+→バージョン1.20よりgnubgのgnuIDにも対応しました。
 
 ## 使い方
-バックギャモンソフト[eXtreme Gammon](www.extremegammon.com)で使われるXGIDを張り付けて実行してください。同じフォルダ内に`gammon.png`という画像ファイルができます。
+次の2通りの方法があります。
 
-先頭の`XGID=`は省略可能です。あっても無くても動作します。
+1. バックギャモンソフト[eXtreme Gammon](www.extremegammon.com)で使われるXGIDを張り付けて実行する。コピーは盤面上で`Ctrl+Shift+C`でできる。
+2. バックギャモン(無料)ソフト[gnuBackgammon](https://www.gnu.org/software/gnubg/manual/)で使われるgnuIDを張り付けて実行する。コピーは盤面上で`Ctrl+C`でできる。
+
+同じフォルダ内に`gammon.png`という画像ファイルができます。
+
+~~先頭の`XGID=`は省略可能です。あっても無くても動作します。~~
+
+(バージョン1.20より)
+
+→入力に応じて先頭の`XGID=`や`bgID=`は省略できます。また省略した場合は、入力IDを自動判別します。
 
 画像は **実行ごとに上書きされる** 点に注意してください。
 
@@ -36,7 +49,7 @@ MakeGammonBoardをダブルクリックなどで起動すると、別画面が�
 エラー時はその理由がメッセージとして表示されます。その内容を確認したうえで、再入力してください。
 
 # XGID形式の説明
-XGIDについて、図の配置で7ポイントマッチ、スコア0-0、白（下側）プレーヤーの手番、最初のダイス目が64であれば以下のようになります。
+XGIDについて、図の配置で7ポイントマッチ、スコア0-0、白（下側）プレーヤーが4倍キューブを持つ手番、ダイス目が32であれば以下のようになります。
 
 `XGID=-BBBaBC---aaB------dcbc--B:2:1:1:32:0:0:0:7:10`
 
@@ -76,7 +89,7 @@ GPL-3.0 License に従います。
 なお使用に際して、不具合による損害等の責任は負いません。
 
 # 今後の予定
-+ GNU Backgammon(gnu bg)のGNUbg ID形式への変換
+~~+ GNU Backgammon(gnu bg)のGNUbg ID形式への変換~~     完了
 
 # 不具合の場合
 [Twitter(@ch_suginami)](https://twitter.com/ch_suginami)までDM等でご連絡ください。
