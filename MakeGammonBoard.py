@@ -23,6 +23,7 @@ from PIL import Image,ImageDraw
 
 import sys
 import string
+import datetime
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
@@ -192,6 +193,7 @@ def draw_pos(XGID, im, drawing):
   elif bottom_num < 0:
     print("Too small checkers for the bottom-player!")
     dummy = input()
+    sys.exit()
   else:
     if top_num > 0:
       drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4, WIDTH-MARGIN, HEIGHT//4+RADIUS), fill = CH_GRAY, outline = BLACK, width = 3)
@@ -496,7 +498,9 @@ else:
   print("Error: Trun incorrect.")
   sys.exit()
 
-im_base.save("gammon.png", quality = 95)
+f_out = datetime.datetime.now()
+f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
+im_base.save(f_out, quality = 95)
 
 you = int(XGID[5])
 oppo = int(XGID[6])
