@@ -1,4 +1,7 @@
 # MakeGammonBoard
+
+English version is [here](README_EN.md).
+
 バックギャモンの任意の盤面図を以下のような白黒画像で作成するソフト。
 
 ただし画像サイズは`1400x1200`ピクセルで固定であり、変更はできません。
@@ -17,14 +20,10 @@
 ## Windowsの場合
 MakeGammonBoard.exeをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
 
-~~次のセクションを参考にXGIDを入力してください。~~
-
 →バージョン1.20よりgnubgのgnuIDにも対応しました。
 
 ## Macの場合
 MakeGammonBoardをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
-
-~~次のセクションを参考にXGIDを入力してください。~~
 
 →バージョン1.20よりgnubgのgnuIDにも対応しました。
 
@@ -34,17 +33,11 @@ MakeGammonBoardをダブルクリックなどで起動すると、別画面が�
 1. バックギャモンソフト[eXtreme Gammon](www.extremegammon.com)で使われるXGIDを張り付けて実行する。コピーは盤面上で`Ctrl+Shift+C`でできる。
 2. バックギャモン(無料)ソフト[gnuBackgammon](https://www.gnu.org/software/gnubg/manual/)で使われるgnuIDを張り付けて実行する。コピーは盤面上で`Ctrl+C`でできる。
 
-~~同じフォルダ内に`gammon.png`という画像ファイルができます。~~
-
 →バージョン1.21より出力ファイル名は時刻表記へ変更されました。
-
-~~先頭の`XGID=`は省略可能です。あっても無くても動作します。~~
 
 (バージョン1.20より)
 
 →入力に応じて先頭の`XGID=`や`bgID=`は省略できます。また省略した場合は、入力IDを自動判別します。
-
-~~画像は **実行ごとに上書きされる** 点に注意してください。~~
 
 成功すると`Output Completed!`と画面に表示されます。何かキーを押すことで終了します。
 
@@ -84,14 +77,13 @@ XGIDはチェッカーの位置情報とキューブ、手番情報を1行に持
 + 最後の26番目の数字は、**下側プレーヤーのオン・ザ・バーにあるチェッカーの個数** を表します。
 
 # ライセンス
-GPL-3.0 License に従います。
+~~GPL-3.0 License に従います。~~
 
-無料で自由にお使いください。よければ制作のクレジットとして **「杉並委員長」** と入れていただけるとありがたいです。
-
-なお使用に際して、不具合による損害等の責任は負いません。
+MITライセンスへ変更しました。
+This software is released under the MIT License.
 
 # 今後の予定
-~~+ GNU Backgammon(gnu bg)のGNUbg ID形式への変換~~     完了
+現在のところなし。
 
 # 不具合の場合
-[Twitter(@ch_suginami)](https://twitter.com/ch_suginami)までDM等でご連絡ください。
+Issueを立てるか、[Twitter(@ch_suginami)](https://twitter.com/ch_suginami)までご連絡ください。
