@@ -133,7 +133,7 @@ def print_circle(pos, num, own, im, drawing):
                 im.paste(num_im, (WIDTH-PNT_WIDTH*(pos+1) + MARGIN, HEIGHT-RADIUS*5), mask=num_im)
                 break
             if own == "b":
-                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
                 drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
@@ -148,43 +148,39 @@ def print_circle(pos, num, own, im, drawing):
                 im.paste(num_im, (WIDTH//2-(pos-5)*PNT_WIDTH + MARGIN, HEIGHT-RADIUS*5), mask=num_im)
                 break
             if own == "b":
-                drawing.ellipse((WIDTH//2 - (pos-5)*PNT_WIDTH + MARGIN, HEIGHT - RADIUS*(i+1), WIDTH//2 - (pos-6)*PNT_WIDTH - MARGIN, HEIGHT - RADIUS*i), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH-LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse((WIDTH//2-(pos-5)*PNT_WIDTH+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH//2-(pos-6)*PNT_WIDTH-MARGIN, HEIGHT-RADIUS*i), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH-LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
                 sys.exit()
+    # top left
     elif 13 <= pos and pos < 19:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, ((pos-13)*PNT_WIDTH +
-                                MARGIN, RADIUS*4), mask=num_im)
+                im.paste(num_im, ((pos-13)*PNT_WIDTH + MARGIN, RADIUS*4), mask=num_im)
                 break
             if own == "b":
-                drawing.ellipse(((pos-13)*PNT_WIDTH+MARGIN, RADIUS*i, (pos-12) *
-                                PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) * PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse(((pos-13)*PNT_WIDTH+MARGIN, RADIUS*i, (pos-12) *
-                                PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) * PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
                 sys.exit()
+    # top right
     elif 19 <= pos and pos < 25:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, (WIDTH//2+(pos-19)*PNT_WIDTH +
-                                MARGIN, RADIUS*4), mask=num_im)
+                im.paste(num_im, (WIDTH//2+(pos-19)*PNT_WIDTH + MARGIN, RADIUS*4), mask=num_im)
                 break
             if own == "b":
-                drawing.ellipse((WIDTH//2+(pos-19)*PNT_WIDTH+MARGIN, RADIUS*i, WIDTH//2+(
-                    pos-18)*PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse((WIDTH//2+(pos-19)*PNT_WIDTH+MARGIN, RADIUS*i, WIDTH//2+(
-                    pos-18)*PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN * L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
