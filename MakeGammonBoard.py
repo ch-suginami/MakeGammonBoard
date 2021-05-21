@@ -37,7 +37,7 @@ bottom_p = [chr(ord("A")+i) for i in range(16)]
 num_image = "number/"
 POINTS = 25
 WIDTH = 1420
-HEIGHT = 1300
+HEIGHT = 1200
 L_MARGIN = 10
 T_MARGIN = 100
 BLACK = (0, 0, 0)
@@ -83,43 +83,30 @@ def draw_base(drawing):
     # each positions
     for i in range(6):
         if i % 2 == 0:
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
-                            2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                            T_MARGIN * HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN + HEIGHT, L_MARGIN + (i+2)*PNT_WIDTH - 50, T_MARGIN + HEIGHT //
-                            2+PNT_WIDTH//2, L_MARGIN * (i+2)*PNT_WIDTH, T_MARGIN + HEIGHT), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT, L_MARGIN + (i+2)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH //
-                            2, T_MARGIN + HEIGHT//2+PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH + 700, T_MARGIN + HEIGHT), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT //2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH, HEIGHT - T_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH - 50, HEIGHT //2+PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH, HEIGHT - T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, HEIGHT - T_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH //2, HEIGHT//2+PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH + 700, HEIGHT - T_MARGIN), fill=WHITE, outline=BLACK)
         else:
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
-                            2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                            T_MARGIN + HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH, T_MARGIN + HEIGHT, L_MARGIN + i*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
-                            2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH, T_MARGIN + HEIGHT), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT, L_MARGIN + i*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                            T_MARGIN + HEIGHT//2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT // 2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH, HEIGHT - T_MARGIN, L_MARGIN + i*PNT_WIDTH - PNT_WIDTH//2, HEIGHT // 2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH, HEIGHT - T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH + WIDTH//2, HEIGHT - T_MARGIN, L_MARGIN + i*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2, HEIGHT//2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH + WIDTH//2, HEIGHT - T_MARGIN), fill=BOARD_GREY, outline=BLACK)
 
     # base rectangle
-    drawing.rectangle((L_MARGIN, T_MARGIN, L_MARGIN + WIDTH, T_MARGIN + HEIGHT), outline=BLACK, width=5)
+    drawing.rectangle((L_MARGIN, T_MARGIN, WIDTH - L_MARGIN, HEIGHT - T_MARGIN), outline=BLACK, width=5)
 
-    # Goal line
-    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH -
-                PNT_WIDTH, T_MARGIN + HEIGHT), fill=BLACK, width=5)
+    # Goal line inside up to down
+    drawing.line((WIDTH - PNT_WIDTH, T_MARGIN, WIDTH - PNT_WIDTH, HEIGHT - T_MARGIN), fill=BLACK, width=5)
 
     # center lines
-    drawing.line((L_MARGIN + WIDTH//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH//2 -
-                PNT_WIDTH, T_MARGIN * HEIGHT), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH//2 - PNT_WIDTH, T_MARGIN * HEIGHT), fill=BLACK, width=5)
     drawing.line((L_MARGIN + WIDTH//2, T_MARGIN, L_MARGIN + WIDTH//2, T_MARGIN + HEIGHT), fill=BLACK, width=5)
 
     # for cube area
-    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + PNT_WIDTH, L_MARGIN + WIDTH,
-                T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT-PNT_WIDTH, L_MARGIN + WIDTH,
-                T_MARGIN + HEIGHT-PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT//2, L_MARGIN + WIDTH,
-                T_MARGIN + HEIGHT//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + PNT_WIDTH, L_MARGIN + WIDTH, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT-PNT_WIDTH, L_MARGIN + WIDTH, T_MARGIN + HEIGHT-PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT//2, L_MARGIN + WIDTH, T_MARGIN + HEIGHT//2), fill=BLACK, width=5)
 
     # for center cube
     drawing.line((L_MARGIN + WIDTH//2-PNT_WIDTH, T_MARGIN + HEIGHT//2-PNT_WIDTH//2,
@@ -133,23 +120,23 @@ def draw_base(drawing):
 def print_circle(pos, num, own, im, drawing):
     if pos == 0:
         drawing.ellipse((WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT*3//4-PNT_WIDTH//2+MARGIN, WIDTH //
-                         2-MARGIN, HEIGHT*3//4+PNT_WIDTH//2-MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                        2-MARGIN, HEIGHT*3//4+PNT_WIDTH//2-MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
         num_im = Image.open(num_image + str(num) + ".png")
         im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT *
-                          3//4-PNT_WIDTH//2+MARGIN), mask=num_im)
+                        3//4-PNT_WIDTH//2+MARGIN), mask=num_im)
     if 0 < pos and pos < 7:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
                 im.paste(num_im, (WIDTH-PNT_WIDTH*(pos+1) +
-                                  MARGIN, HEIGHT-RADIUS*5), mask=num_im)
+                                MARGIN, HEIGHT-RADIUS*5), mask=num_im)
                 break
             if own == "b":
                 drawing.ellipse((WIDTH-PNT_WIDTH*(pos+1)+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH -
-                                 PNT_WIDTH*pos-MARGIN, HEIGHT-RADIUS*i), fill=WHITE, outline=BLACK, width=3)
+                                PNT_WIDTH*pos-MARGIN, HEIGHT-RADIUS*i), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
                 drawing.ellipse((WIDTH-PNT_WIDTH*(pos+1)+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH -
-                                 PNT_WIDTH*pos-MARGIN, HEIGHT-RADIUS*i), fill=CH_GRAY, outline=BLACK, width=3)
+                                PNT_WIDTH*pos-MARGIN, HEIGHT-RADIUS*i), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -159,7 +146,7 @@ def print_circle(pos, num, own, im, drawing):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
                 im.paste(num_im, (WIDTH//2-(pos-5)*PNT_WIDTH +
-                                  MARGIN, HEIGHT-RADIUS*5), mask=num_im)
+                                MARGIN, HEIGHT-RADIUS*5), mask=num_im)
                 break
             if own == "b":
                 drawing.ellipse((WIDTH//2-(pos-5)*PNT_WIDTH+MARGIN, HEIGHT-RADIUS*(i+1), WIDTH//2-(
@@ -176,14 +163,14 @@ def print_circle(pos, num, own, im, drawing):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
                 im.paste(num_im, ((pos-13)*PNT_WIDTH +
-                                  MARGIN, RADIUS*4), mask=num_im)
+                                MARGIN, RADIUS*4), mask=num_im)
                 break
             if own == "b":
                 drawing.ellipse(((pos-13)*PNT_WIDTH+MARGIN, RADIUS*i, (pos-12) *
-                                 PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=WHITE, outline=BLACK, width=3)
+                                PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
                 drawing.ellipse(((pos-13)*PNT_WIDTH+MARGIN, RADIUS*i, (pos-12) *
-                                 PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=CH_GRAY, outline=BLACK, width=3)
+                                PNT_WIDTH-MARGIN, RADIUS*(i+1)), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -193,7 +180,7 @@ def print_circle(pos, num, own, im, drawing):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
                 im.paste(num_im, (WIDTH//2+(pos-19)*PNT_WIDTH +
-                                  MARGIN, RADIUS*4), mask=num_im)
+                                MARGIN, RADIUS*4), mask=num_im)
                 break
             if own == "b":
                 drawing.ellipse((WIDTH//2+(pos-19)*PNT_WIDTH+MARGIN, RADIUS*i, WIDTH//2+(
@@ -207,10 +194,10 @@ def print_circle(pos, num, own, im, drawing):
                 sys.exit()
     elif pos == 25:
         drawing.ellipse((WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//4-PNT_WIDTH//2+MARGIN, WIDTH //
-                         2-MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill=WHITE, outline=BLACK, width=3)
+                        2-MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill=WHITE, outline=BLACK, width=3)
         num_im = Image.open(num_image + str(num) + ".png")
         im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT //
-                          4-PNT_WIDTH//2+MARGIN), mask=num_im)
+                        4-PNT_WIDTH//2+MARGIN), mask=num_im)
     return drawing
 
 
@@ -244,15 +231,15 @@ def draw_pos(XGID, im, drawing):
     else:
         if top_num > 0:
             drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4, WIDTH-MARGIN,
-                             HEIGHT//4+RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
+                            HEIGHT//4+RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
             num_im = Image.open(num_image + str(top_num) + ".png")
             im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4), mask=num_im)
         if bottom_num > 0:
             drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//2+PNT_WIDTH+RADIUS, WIDTH -
-                             MARGIN, HEIGHT//2+PNT_WIDTH+2*RADIUS), fill=WHITE, outline=BLACK, width=3)
+                            MARGIN, HEIGHT//2+PNT_WIDTH+2*RADIUS), fill=WHITE, outline=BLACK, width=3)
             num_im = Image.open(num_image + str(bottom_num) + ".png")
             im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT //
-                              2+PNT_WIDTH+RADIUS), mask=num_im)
+                            2+PNT_WIDTH+RADIUS), mask=num_im)
     return drawing
 
 
@@ -265,14 +252,14 @@ def draw_cube(XGID, im, drawing):
             d_dice = Image.open(num_image + str(cube_num) + ".png")
             d_dice = d_dice.rotate(180)
             drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH) +
-                               RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
+                            RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
             im.paste(d_dice, (int(2.5*PNT_WIDTH)+MARGIN, HEIGHT //
-                              2-PNT_WIDTH//2+MARGIN), mask=d_dice)
+                            2-PNT_WIDTH//2+MARGIN), mask=d_dice)
             return drawing
         if int(XGID[2]) == 1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
             im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN,
-                              HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
+                            HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
             return drawing
         elif int(XGID[2]) == -1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
@@ -283,7 +270,7 @@ def draw_cube(XGID, im, drawing):
             num_im = Image.open(num_image + "64.png")
             num_im = num_im.rotate(90)
             im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT //
-                              2-PNT_WIDTH//2+MARGIN), mask=num_im)
+                            2-PNT_WIDTH//2+MARGIN), mask=num_im)
             return drawing
     elif int(XGID[3]) == -1:
         cube_num = 2**(int(XGID[1]))
@@ -293,12 +280,12 @@ def draw_cube(XGID, im, drawing):
             drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(
                 2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
             im.paste(d_dice, (WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN,
-                              HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=d_dice)
+                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=d_dice)
             return drawing
         if int(XGID[2]) == 1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
             im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN,
-                              HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
+                            HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
             return drawing
         elif int(XGID[2]) == -1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
@@ -309,7 +296,7 @@ def draw_cube(XGID, im, drawing):
             num_im = Image.open(num_image + "64.png")
             num_im = num_im.rotate(90)
             im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT //
-                              2-PNT_WIDTH//2+MARGIN), mask=num_im)
+                            2-PNT_WIDTH//2+MARGIN), mask=num_im)
             return drawing
     else:
         print("Doubling cube Error")
@@ -338,9 +325,9 @@ def draw_dice(XGID, im, drawing):
         dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
         dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
         drawing.rectangle((WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 +
-                           2*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
+                        2*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
         drawing.rectangle((WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 +
-                           3*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
+                        3*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
         im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN,
                             HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
         im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN,
@@ -365,9 +352,9 @@ def draw_dice(XGID, im, drawing):
         dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
         dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
         drawing.rectangle((2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 2*PNT_WIDTH+RADIUS +
-                           MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
+                        MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
         drawing.rectangle((3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 3*PNT_WIDTH+RADIUS +
-                           MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
+                        MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
         im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT //
                             2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
         im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT //
@@ -567,6 +554,7 @@ draw = draw_pos(XGID, im, draw)
 draw = draw_cube(XGID, im, draw)
 draw = draw_dice(XGID, im, draw)
 
+'''
 if int(XGID[3]) == 1:
     im_base = Image.open(num_image + "pos.png")
     im_base.paste(im, (0, PNT_WIDTH))
@@ -574,12 +562,13 @@ elif int(XGID[3]) == -1:
     im_base = Image.open(num_image + "pos2.png")
     im_base.paste(im, (0, PNT_WIDTH))
 else:
-    print("Error: Trun incorrect.")
+    print("Error: Turn incorrect.")
     sys.exit()
+'''
 
 f_out = datetime.datetime.now()
 f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
-im_base.save(f_out, quality=95)
+im.save("sample.png")
 
 you = int(XGID[5])
 oppo = int(XGID[6])
