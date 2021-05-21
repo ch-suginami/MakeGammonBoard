@@ -49,11 +49,14 @@ PNT_WIDTH = 100
 LR_MARGIN = 20
 BT_MARGIN = 200
 MARGIN = (PNT_WIDTH - RADIUS) // 2
+POS_T_MARGIN = 5
+POS_L_MARGIN = 68
+POS_L2_MARGIN = 24
 GNU_POS = 10
 GNU_MATCH = 9
 
 # font information
-font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 68)
+font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 40)
 font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
 
@@ -118,10 +121,38 @@ def draw_base(drawing):
 
     return drawing
 
+def draw_coords(drawing, turn):
+    for i in range(1,7):
+        if turn == 'b':
+            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+        else:
+            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+    for i in range(7, 10):
+        if turn == 'b':
+            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+        else:
+            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+    for i in range(10, 13):
+        if turn == 'b':
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+        else:
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+    for i in range(13, 19):
+        if turn == 'b':
+            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+        else:
+            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+    for i in range(19, 25):
+        if turn == 'b':
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+        else:
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+    return drawing
+
 
 def print_circle(pos, num, own, im, drawing):
     if pos == 0:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2-PNT_WIDTH + MARGIN, HEIGHT*3//4-PNT_WIDTH//2+MARGIN, (WIDTH-LR_MARGIN) // 2-MARGIN, HEIGHT*3//4+PNT_WIDTH//2-MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2-PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4-PNT_WIDTH//2+MARGIN, (WIDTH-LR_MARGIN) // 2-MARGIN, HEIGHT*3//4+PNT_WIDTH//2-MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
         num_im = Image.open(num_image + str(num) + ".png")
         im.paste(num_im, ((WIDTH-LR_MARGIN)//2-PNT_WIDTH+MARGIN, HEIGHT * 3//4-PNT_WIDTH//2+MARGIN), mask=num_im)
     # right bottom
@@ -186,11 +217,9 @@ def print_circle(pos, num, own, im, drawing):
                 dummy = input()
                 sys.exit()
     elif pos == 25:
-        drawing.ellipse((WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT//4-PNT_WIDTH//2+MARGIN, WIDTH //
-                        2-MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill=WHITE, outline=BLACK, width=3)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2-PNT_WIDTH + MARGIN, HEIGHT//4-PNT_WIDTH//2+MARGIN, (WIDTH-LR_MARGIN) // 2 - MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill=WHITE, outline=BLACK, width=3)
         num_im = Image.open(num_image + str(num) + ".png")
-        im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT //
-                        4-PNT_WIDTH//2+MARGIN), mask=num_im)
+        im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT // 4-PNT_WIDTH//2+MARGIN), mask=num_im)
     return drawing
 
 
@@ -317,14 +346,10 @@ def draw_dice(XGID, im, drawing):
             sys.exit()
         dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
         dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
-        drawing.rectangle((WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 +
-                        2*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
-        drawing.rectangle((WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 +
-                        3*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
-        im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN,
-                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
-        im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN,
-                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
+        drawing.rectangle((WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 + 2*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
+        drawing.rectangle((WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 + 3*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
+        im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
+        im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
     elif int(XGID[3]) == -1:
         if XGID[4] == "00":
@@ -344,14 +369,10 @@ def draw_dice(XGID, im, drawing):
             sys.exit()
         dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
         dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
-        drawing.rectangle((2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 2*PNT_WIDTH+RADIUS +
-                        MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
-        drawing.rectangle((3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 3*PNT_WIDTH+RADIUS +
-                        MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
-        im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT //
-                            2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
-        im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT //
-                            2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
+        drawing.rectangle((2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 2*PNT_WIDTH+RADIUS + MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
+        drawing.rectangle((3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 3*PNT_WIDTH+RADIUS + MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
+        im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
+        im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
     else:
         print("Error: Tern incorrect.")
@@ -547,17 +568,14 @@ draw = draw_pos(XGID, im, draw)
 draw = draw_cube(XGID, im, draw)
 draw = draw_dice(XGID, im, draw)
 
-'''
 if int(XGID[3]) == 1:
-    im_base = Image.open(num_image + "pos.png")
-    im_base.paste(im, (0, PNT_WIDTH))
+    draw = draw_coords(draw, 'b')
 elif int(XGID[3]) == -1:
-    im_base = Image.open(num_image + "pos2.png")
-    im_base.paste(im, (0, PNT_WIDTH))
+    draw = draw_coords(draw, 't')
 else:
     print("Error: Turn incorrect.")
     sys.exit()
-'''
+
 
 f_out = datetime.datetime.now()
 f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
