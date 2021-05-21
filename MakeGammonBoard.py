@@ -101,16 +101,16 @@ def draw_base(drawing):
     drawing.rectangle((L_MARGIN, T_MARGIN, WIDTH - L_MARGIN, HEIGHT - BT_MARGIN), outline=BLACK, width=5)
 
     # Goal line inside up to down
-    drawing.line((WIDTH - PNT_WIDTH, T_MARGIN, WIDTH - PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN, WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
 
     # center lines
     drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
     drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
 
-    # for cube area
-    drawing.line((WIDTH - PNT_WIDTH, T_MARGIN + PNT_WIDTH, WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH, HEIGHT - PNT_WIDTH - T_MARGIN, WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - T_MARGIN), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH, HEIGHT//2, WIDTH - L_MARGIN, HEIGHT//2), fill=BLACK, width=5)
+    # for taking cube area
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH, WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN, WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT//2, WIDTH - L_MARGIN, HEIGHT//2), fill=BLACK, width=5)
 
     # for center cube
     drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
