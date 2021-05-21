@@ -2,13 +2,31 @@
 MakeGammonBoard
   --Making any situation figure of backgammon game.--
 
+MIT License
+
 Copyright (c) 2021 Masanori Hirata(ch-suginami)
 
-This software is released under the MIT License.
-http://opensource.org/licenses/mit-license.php
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
 '''
 
-from PIL import Image, ImageDraw
+from PIL import Image, ImageDraw, ImageFont
 
 import sys
 import string
@@ -18,8 +36,10 @@ top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
 num_image = "number/"
 POINTS = 25
-WIDTH = 1400
-HEIGHT = 1000
+WIDTH = 1420
+HEIGHT = 1300
+L_MARGIN = 10
+T_MARGIN = 100
 BLACK = (0, 0, 0)
 CH_GRAY = (179, 179, 179)
 WHITE = (255, 255, 255)
@@ -30,6 +50,8 @@ MARGIN = (PNT_WIDTH - RADIUS) // 2
 GNU_POS = 10
 GNU_MATCH = 9
 
+# font information
+font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 68)
 
 def encode_base64(num):
     BASE64_LIST = []
@@ -61,49 +83,49 @@ def draw_base(drawing):
     # each positions
     for i in range(6):
         if i % 2 == 0:
-            drawing.polygon((i*PNT_WIDTH, 0, (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT //
-                             2-PNT_WIDTH//2, (i+1)*PNT_WIDTH, 0), fill=WHITE, outline=BLACK)
-            drawing.polygon((i*PNT_WIDTH + WIDTH//2, 0, (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                             HEIGHT//2-PNT_WIDTH//2, (i+1)*PNT_WIDTH + WIDTH//2, 0), fill=WHITE, outline=BLACK)
-            drawing.polygon(((i+1)*PNT_WIDTH, HEIGHT, (i+2)*PNT_WIDTH - 50, HEIGHT //
-                             2+PNT_WIDTH//2, (i+2)*PNT_WIDTH, HEIGHT), fill=WHITE, outline=BLACK)
-            drawing.polygon(((i+1)*PNT_WIDTH + WIDTH//2, HEIGHT, (i+2)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH //
-                             2, HEIGHT//2+PNT_WIDTH//2, (i+2)*PNT_WIDTH + 700, HEIGHT), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
+                            2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
+                            T_MARGIN * HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN + HEIGHT, L_MARGIN + (i+2)*PNT_WIDTH - 50, T_MARGIN + HEIGHT //
+                            2+PNT_WIDTH//2, L_MARGIN * (i+2)*PNT_WIDTH, T_MARGIN + HEIGHT), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT, L_MARGIN + (i+2)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH //
+                            2, T_MARGIN + HEIGHT//2+PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH + 700, T_MARGIN + HEIGHT), fill=WHITE, outline=BLACK)
         else:
-            drawing.polygon((i*PNT_WIDTH, 0, (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT //
-                             2-PNT_WIDTH//2, (i+1)*PNT_WIDTH, 0), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((i*PNT_WIDTH + WIDTH//2, 0, (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                             HEIGHT//2-PNT_WIDTH//2, (i+1)*PNT_WIDTH + WIDTH//2, 0), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon(((i-1)*PNT_WIDTH, HEIGHT, i*PNT_WIDTH - PNT_WIDTH//2, HEIGHT //
-                             2+PNT_WIDTH//2, i*PNT_WIDTH, HEIGHT), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon(((i-1)*PNT_WIDTH + WIDTH//2, HEIGHT, i*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
-                             HEIGHT//2+PNT_WIDTH//2, i*PNT_WIDTH + WIDTH//2, HEIGHT), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
+                            2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
+                            T_MARGIN + HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + WIDTH//2, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH, T_MARGIN + HEIGHT, L_MARGIN + i*PNT_WIDTH - PNT_WIDTH//2, T_MARGIN + HEIGHT //
+                            2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH, T_MARGIN + HEIGHT), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT, L_MARGIN + i*PNT_WIDTH + WIDTH//2 - PNT_WIDTH//2,
+                            T_MARGIN + HEIGHT//2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH + WIDTH//2, T_MARGIN + HEIGHT), fill=BOARD_GREY, outline=BLACK)
 
     # base rectangle
-    drawing.rectangle((0, 0, WIDTH, HEIGHT), outline=BLACK, width=5)
+    drawing.rectangle((L_MARGIN, T_MARGIN, L_MARGIN + WIDTH, T_MARGIN + HEIGHT), outline=BLACK, width=5)
 
     # Goal line
-    drawing.line((WIDTH - PNT_WIDTH, 0, WIDTH -
-                  PNT_WIDTH, HEIGHT), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH -
+                PNT_WIDTH, T_MARGIN + HEIGHT), fill=BLACK, width=5)
 
     # center lines
-    drawing.line((WIDTH//2 - PNT_WIDTH, 0, WIDTH//2 -
-                  PNT_WIDTH, HEIGHT), fill=BLACK, width=5)
-    drawing.line((WIDTH//2, 0, WIDTH//2, HEIGHT), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH//2 -
+                PNT_WIDTH, T_MARGIN * HEIGHT), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH//2, T_MARGIN, L_MARGIN + WIDTH//2, T_MARGIN + HEIGHT), fill=BLACK, width=5)
 
     # for cube area
-    drawing.line((WIDTH - PNT_WIDTH, PNT_WIDTH, WIDTH,
-                  PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH, HEIGHT-PNT_WIDTH, WIDTH,
-                  HEIGHT-PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH, HEIGHT//2, WIDTH,
-                  HEIGHT//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + PNT_WIDTH, L_MARGIN + WIDTH,
+                T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT-PNT_WIDTH, L_MARGIN + WIDTH,
+                T_MARGIN + HEIGHT-PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT//2, L_MARGIN + WIDTH,
+                T_MARGIN + HEIGHT//2), fill=BLACK, width=5)
 
     # for center cube
-    drawing.line((WIDTH//2-PNT_WIDTH, HEIGHT//2-PNT_WIDTH//2,
-                  WIDTH//2, HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
-    drawing.line((WIDTH//2-PNT_WIDTH, HEIGHT//2+PNT_WIDTH//2,
-                  WIDTH//2, HEIGHT//2+PNT_WIDTH//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH//2-PNT_WIDTH, T_MARGIN + HEIGHT//2-PNT_WIDTH//2,
+                L_MARGIN + WIDTH//2, T_MARGIN + HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + WIDTH//2-PNT_WIDTH, T_MARGIN + HEIGHT//2+PNT_WIDTH//2,
+                L_MARGIN + WIDTH//2, T_MARGIN + HEIGHT//2+PNT_WIDTH//2), fill=BLACK, width=5)
 
     return drawing
 
