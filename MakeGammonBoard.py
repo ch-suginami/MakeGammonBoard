@@ -102,13 +102,13 @@ def draw_base(drawing):
     drawing.line((WIDTH - PNT_WIDTH, T_MARGIN, WIDTH - PNT_WIDTH, HEIGHT - T_MARGIN), fill=BLACK, width=5)
 
     # center lines
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + WIDTH//2 - PNT_WIDTH, HEIGHT - T_MARGIN), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + WIDTH//2, HEIGHT - T_MARGIN), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, HEIGHT - T_MARGIN), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT - T_MARGIN), fill=BLACK, width=5)
 
     # for cube area
     drawing.line((WIDTH - PNT_WIDTH, T_MARGIN + PNT_WIDTH, WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - T_MARGIN, WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - T_MARGIN), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + WIDTH - PNT_WIDTH, T_MARGIN + HEIGHT//2, L_MARGIN + WIDTH, T_MARGIN + HEIGHT//2), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH, HEIGHT - PNT_WIDTH - T_MARGIN, WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - T_MARGIN), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH, HEIGHT//2, WIDTH - L_MARGIN, HEIGHT//2), fill=BLACK, width=5)
 
     # for center cube
     drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
