@@ -245,16 +245,11 @@ def draw_pos(XGID, im, drawing):
         sys.exit()
     else:
         if top_num > 0:
-            drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4, WIDTH-MARGIN,
-                            HEIGHT//4+RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
-            num_im = Image.open(num_image + str(top_num) + ".png")
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT//4), mask=num_im)
+            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH - L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill = CH_GRAY, outline = BLACK, width = 3)
+            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT//4 - MARGIN//2), str(top_num), font = font_num, fill = BLACK)
         if bottom_num > 0:
-            drawing.ellipse((WIDTH-PNT_WIDTH+MARGIN, HEIGHT//2+PNT_WIDTH+RADIUS, WIDTH -
-                            MARGIN, HEIGHT//2+PNT_WIDTH+2*RADIUS), fill=WHITE, outline=BLACK, width=3)
-            num_im = Image.open(num_image + str(bottom_num) + ".png")
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, HEIGHT //
-                            2+PNT_WIDTH+RADIUS), mask=num_im)
+            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH -PNT_WIDTH - L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
+            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4.5), str(bottom_num), font = font_num, fill = BLACK)
     return drawing
 
 
