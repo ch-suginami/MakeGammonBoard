@@ -40,10 +40,11 @@ WIDTH = 1420
 HEIGHT = 1300
 L_MARGIN = 10
 T_MARGIN = 100
-BLACK = (0, 0, 0)
-CH_GRAY = (179, 179, 179)
-WHITE = (255, 255, 255)
-BOARD_GREY = (77, 77, 77)
+BLACK = (0, 0, 0, 255)
+CH_GRAY = (179, 179, 179, 255)
+WHITE = (255, 255, 255, 255)
+BOARD_GREY = (77, 77, 77, 255)
+CLEAR = (255, 255, 255, 0)
 RADIUS = 80
 PNT_WIDTH = 100
 LR_MARGIN = 20
@@ -58,7 +59,7 @@ GNU_MATCH = 9
 # font information
 font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
-font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
+#font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
 
 def encode_base64(num):
     BASE64_LIST = []
@@ -259,12 +260,15 @@ def draw_cube(XGID, im, drawing):
         # show double
         if XGID[4] == "DD":
             cube_num = 2**(int(XGID[1])+1)
-            d_dice = Image.open(num_image + str(cube_num) + ".png")
-            d_dice = d_dice.rotate(180)
-            drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH) +
-                            RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
-            im.paste(d_dice, (int(2.5*PNT_WIDTH)+MARGIN, HEIGHT //
-                            2-PNT_WIDTH//2+MARGIN), mask=d_dice)
+            d_cube = Image.new('RGBA', (PNT_WIDTH*2 // 3, PNT_WIDTH), CLEAR)
+            d_cube_draw = ImageDraw.Draw(d_cube)
+            d_cube_draw.text((0, 0), str(cube_num), font = font_num, fill = BLACK)
+            d_cube = d_cube.rotate(180)
+            drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH) + RADIUS+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CLEAR, outline=BLACK, width=5)
+            if cube_num < 10:
+                im.paste(d_cube, (int(PNT_WIDTH*2.4) + MARGIN + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask = d_cube)
+            else:
+                im.paste(d_cube, (int(PNT_WIDTH*2) + int(MARGIN*6.5) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask = d_cube)
             return drawing
         if int(XGID[2]) == 1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
@@ -286,16 +290,15 @@ def draw_cube(XGID, im, drawing):
         cube_num = 2**(int(XGID[1]))
         if XGID[4] == "DD":
             cube_num = 2**(int(XGID[1])+1)
-            d_dice = Image.open(num_image + str(cube_num) + ".png")
-            drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(
-                2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
-            im.paste(d_dice, (WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN,
-                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=d_dice)
+            drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
+            if cube_num < 10:
+                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*3) - int(MARGIN*1.4) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.75)), str(cube_num), font = font_num, fill = BLACK)
+            else:
+                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*2.6) + int(MARGIN) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.8)), str(cube_num), font = font_num, fill = BLACK)
             return drawing
         if int(XGID[2]) == 1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN,
-                            HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
+            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN,HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
             return drawing
         elif int(XGID[2]) == -1:
             num_im = Image.open(num_image + str(cube_num) + ".png")
