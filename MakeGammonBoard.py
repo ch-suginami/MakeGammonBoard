@@ -51,7 +51,7 @@ BT_MARGIN = 200
 MARGIN = (PNT_WIDTH - RADIUS) // 2
 POS_T_MARGIN = 5
 POS_L_MARGIN = 68
-POS_L2_MARGIN = 24
+POS_L2_MARGIN = 20
 GNU_POS = 10
 GNU_MATCH = 9
 
@@ -153,19 +153,17 @@ def draw_coords(drawing, turn):
 def print_circle(pos, num, own, im, drawing):
     if pos == 0:
         drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill = CH_GRAY, outline = BLACK, width = 3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 7.5), str(num), font = font_num, fill = BLACK)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 7.7), str(num), font = font_num, fill = BLACK)
     # right bottom
     if 0 < pos < 7:
         for i in range(num):
             if i > 4:
-#                drawing = drawing.text((WIDTH + L_MARGIN -PNT_WIDTH*(pos+1) + MARGIN, HEIGHT-RADIUS*5), str(num), font = font_num, fill = BLACK)
-                num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, (WIDTH-PNT_WIDTH*(pos+1) + MARGIN, HEIGHT-RADIUS*5), mask=num_im)
+                drawing.text((WIDTH - PNT_WIDTH*(pos+1) + MARGIN*1.4 + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font = font_num, fill = BLACK)
                 break
             if own == "b":
-                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill = WHITE, outline = BLACK, width = 3)
             elif own == "t":
-                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill = CH_GRAY, outline = BLACK, width = 3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -174,8 +172,7 @@ def print_circle(pos, num, own, im, drawing):
     elif 7 <= pos < 13:
         for i in range(num):
             if i > 4:
-                num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, (WIDTH//2-(pos-5)*PNT_WIDTH + MARGIN, HEIGHT-RADIUS*5), mask=num_im)
+                drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 4.6, HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font = font_num, fill = BLACK)
                 break
             if own == "b":
                 drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH-LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -189,8 +186,7 @@ def print_circle(pos, num, own, im, drawing):
     elif 13 <= pos < 19:
         for i in range(num):
             if i > 4:
-                num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, ((pos-13)*PNT_WIDTH + MARGIN, RADIUS*4), mask=num_im)
+                drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 3.5, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font = font_num, fill = BLACK)
                 break
             if own == "b":
                 drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) * PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -204,20 +200,19 @@ def print_circle(pos, num, own, im, drawing):
     elif 19 <= pos < 25:
         for i in range(num):
             if i > 4:
-                num_im = Image.open(num_image + str(num) + ".png")
-                im.paste(num_im, (WIDTH//2+(pos-19)*PNT_WIDTH + MARGIN, RADIUS*4), mask=num_im)
+                drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN * 2 + MARGIN//2, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font = font_num, fill = BLACK)
                 break
             if own == "b":
                 drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN * L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
                 sys.exit()
     elif pos == 25:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN *3 // 4), fill = CH_GRAY, outline = BLACK, width = 3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 5 + MARGIN // 2), str(num), font = font_num, fill = BLACK)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN *3 // 4), fill = WHITE, outline = BLACK, width = 3)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT//4 - MARGIN * 12), str(num), font = font_num, fill = BLACK)
     return drawing
 
 
