@@ -57,7 +57,7 @@ GNU_MATCH = 9
 
 # font information
 font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
-font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 40)
+font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
 font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
 
 def encode_base64(num):
@@ -124,37 +124,36 @@ def draw_base(drawing):
 def draw_coords(drawing, turn):
     for i in range(1,7):
         if turn == 'b':
-            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
         else:
             drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
     for i in range(7, 10):
         if turn == 'b':
-            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
         else:
             drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
     for i in range(10, 13):
         if turn == 'b':
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
         else:
             drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
     for i in range(13, 19):
         if turn == 'b':
             drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
         else:
-            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
     for i in range(19, 25):
         if turn == 'b':
             drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
         else:
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
     return drawing
 
 
 def print_circle(pos, num, own, im, drawing):
     if pos == 0:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2-PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4-PNT_WIDTH//2+MARGIN, (WIDTH-LR_MARGIN) // 2-MARGIN, HEIGHT*3//4+PNT_WIDTH//2-MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
-        num_im = Image.open(num_image + str(num) + ".png")
-        im.paste(num_im, ((WIDTH-LR_MARGIN)//2-PNT_WIDTH+MARGIN, HEIGHT * 3//4-PNT_WIDTH//2+MARGIN), mask=num_im)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill = CH_GRAY, outline = BLACK, width = 3)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 7.5), str(num), font = font_num, fill = BLACK)
     # right bottom
     if 0 < pos < 7:
         for i in range(num):
@@ -172,7 +171,7 @@ def print_circle(pos, num, own, im, drawing):
                 dummy = input()
                 sys.exit()
     # left bottom
-    elif 7 <= pos and pos < 13:
+    elif 7 <= pos < 13:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
@@ -187,7 +186,7 @@ def print_circle(pos, num, own, im, drawing):
                 dummy = input()
                 sys.exit()
     # top left
-    elif 13 <= pos and pos < 19:
+    elif 13 <= pos < 19:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
@@ -202,7 +201,7 @@ def print_circle(pos, num, own, im, drawing):
                 dummy = input()
                 sys.exit()
     # top right
-    elif 19 <= pos and pos < 25:
+    elif 19 <= pos < 25:
         for i in range(num):
             if i > 4:
                 num_im = Image.open(num_image + str(num) + ".png")
@@ -217,9 +216,8 @@ def print_circle(pos, num, own, im, drawing):
                 dummy = input()
                 sys.exit()
     elif pos == 25:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2-PNT_WIDTH + MARGIN, HEIGHT//4-PNT_WIDTH//2+MARGIN, (WIDTH-LR_MARGIN) // 2 - MARGIN, HEIGHT//4+PNT_WIDTH//2-MARGIN), fill=WHITE, outline=BLACK, width=3)
-        num_im = Image.open(num_image + str(num) + ".png")
-        im.paste(num_im, (WIDTH//2-PNT_WIDTH+MARGIN, HEIGHT // 4-PNT_WIDTH//2+MARGIN), mask=num_im)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN *3 // 4), fill = CH_GRAY, outline = BLACK, width = 3)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 5 + MARGIN // 2), str(num), font = font_num, fill = BLACK)
     return drawing
 
 
