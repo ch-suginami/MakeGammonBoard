@@ -61,6 +61,7 @@ font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
 #font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
 
+
 def encode_base64(num):
     BASE64_LIST = []
     for i in string.ascii_uppercase:
@@ -91,80 +92,113 @@ def draw_base(drawing):
     # each positions
     for i in range(6):
         if i % 2 == 0:
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT //2 - PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH, HEIGHT - BT_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH - PNT_WIDTH // 2, HEIGHT // 2 + PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH, HEIGHT - BT_MARGIN), fill=WHITE, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2 - PNT_WIDTH //2, HEIGHT//2 + PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2,
+                             HEIGHT // 2 - PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 -
+                             PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH, HEIGHT - BT_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH - PNT_WIDTH //
+                             2, HEIGHT // 2 + PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH, HEIGHT - BT_MARGIN), fill=WHITE, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN, L_MARGIN + (i+2)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2 -
+                             PNT_WIDTH // 2, HEIGHT//2 + PNT_WIDTH//2, L_MARGIN + (i+2)*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=WHITE, outline=BLACK)
         else:
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2, HEIGHT // 2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + i*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH, HEIGHT - BT_MARGIN, L_MARGIN + i*PNT_WIDTH - PNT_WIDTH//2, HEIGHT // 2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BOARD_GREY, outline=BLACK)
-            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN, L_MARGIN + i*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH//2, HEIGHT//2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2,
+                             HEIGHT // 2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + i*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 -
+                             PNT_WIDTH//2, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (i+1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, T_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH, HEIGHT - BT_MARGIN, L_MARGIN + i*PNT_WIDTH - PNT_WIDTH//2,
+                             HEIGHT // 2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BOARD_GREY, outline=BLACK)
+            drawing.polygon((L_MARGIN + (i-1)*PNT_WIDTH + (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN, L_MARGIN + i*PNT_WIDTH + (WIDTH-LR_MARGIN)//2 -
+                             PNT_WIDTH//2, HEIGHT//2+PNT_WIDTH//2, L_MARGIN + i*PNT_WIDTH + (WIDTH - LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BOARD_GREY, outline=BLACK)
 
     # base rectangle
-    drawing.rectangle((L_MARGIN, T_MARGIN, WIDTH - L_MARGIN, HEIGHT - BT_MARGIN), outline=BLACK, width=5)
+    drawing.rectangle((L_MARGIN, T_MARGIN, WIDTH - L_MARGIN,
+                       HEIGHT - BT_MARGIN), outline=BLACK, width=5)
 
     # Goal line inside up to down
-    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN, WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN, WIDTH -
+                  PNT_WIDTH - L_MARGIN, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
 
     # center lines
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, T_MARGIN, L_MARGIN +
+                  (WIDTH-LR_MARGIN)//2 - PNT_WIDTH, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN +
+                  (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
 
     # for taking cube area
-    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH, WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN, WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN), fill=BLACK, width=5)
-    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT//2, WIDTH - L_MARGIN, HEIGHT//2), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH,
+                  WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN,
+                  WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN), fill=BLACK, width=5)
+    drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT//2,
+                  WIDTH - L_MARGIN, HEIGHT//2), fill=BLACK, width=5)
 
     # for center cube
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2-PNT_WIDTH//2, L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
-    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2+PNT_WIDTH//2,L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2+PNT_WIDTH//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2-PNT_WIDTH//2,
+                  L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2-PNT_WIDTH//2), fill=BLACK, width=5)
+    drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2-PNT_WIDTH, HEIGHT//2+PNT_WIDTH//2,
+                  L_MARGIN + (WIDTH-LR_MARGIN)//2, HEIGHT//2+PNT_WIDTH//2), fill=BLACK, width=5)
 
     return drawing
 
+
 def draw_coords(drawing, turn):
-    for i in range(1,7):
+    for i in range(1, 7):
         if turn == 'b':
-            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, HEIGHT -
+                          BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
         else:
-            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text((WIDTH - L_MARGIN - i*PNT_WIDTH - POS_L_MARGIN,
+                          POS_T_MARGIN), str(i), font=font_coords, fill=BLACK)
     for i in range(7, 10):
         if turn == 'b':
-            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN,
+                          HEIGHT - BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
         else:
-            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH - LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH -
+                          POS_L_MARGIN, POS_T_MARGIN), str(i), font=font_coords, fill=BLACK)
     for i in range(10, 13):
         if turn == 'b':
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN -
+                          POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
         else:
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN - (i-6)*PNT_WIDTH - POS_L_MARGIN -
+                          POS_L2_MARGIN, POS_T_MARGIN), str(i), font=font_coords, fill=BLACK)
     for i in range(13, 19):
         if turn == 'b':
-            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN,
+                          POS_T_MARGIN), str(i), font=font_coords, fill=BLACK)
         else:
-            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((i-13)*PNT_WIDTH + POS_L2_MARGIN, HEIGHT -
+                          BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
     for i in range(19, 25):
         if turn == 'b':
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, POS_T_MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN -
+                          POS_L2_MARGIN, POS_T_MARGIN), str(i), font=font_coords, fill=BLACK)
         else:
-            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN - POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font = font_coords, fill = BLACK)
+            drawing.text(((WIDTH-LR_MARGIN) // 2 + L_MARGIN + (i-18)*PNT_WIDTH - POS_L_MARGIN -
+                          POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
     return drawing
 
 
 def print_circle(pos, num, own, im, drawing):
     if pos == 0:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill = CH_GRAY, outline = BLACK, width = 3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT*3//4 - MARGIN * 7.7), str(num), font = font_num, fill = BLACK)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH -
+                                                                                                                         LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill=CH_GRAY, outline=BLACK, width=3)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2,
+                      HEIGHT*3//4 - MARGIN * 7.7), str(num), font=font_num, fill=BLACK)
     # right bottom
     if 0 < pos < 7:
         for i in range(num):
             if i > 4:
-                drawing.text((WIDTH - PNT_WIDTH*(pos+1) + MARGIN*1.4 + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font = font_num, fill = BLACK)
+                drawing.text((WIDTH - PNT_WIDTH*(pos+1) + MARGIN*1.4 + L_MARGIN, HEIGHT -
+                              BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
                 break
             if own == "b":
-                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill = WHITE, outline = BLACK, width = 3)
+                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH -
+                                 PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH - PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill = CH_GRAY, outline = BLACK, width = 3)
+                drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH -
+                                 PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -173,12 +207,15 @@ def print_circle(pos, num, own, im, drawing):
     elif 7 <= pos < 13:
         for i in range(num):
             if i > 4:
-                drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 4.6, HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font = font_num, fill = BLACK)
+                drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 4.6,
+                              HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
                 break
             if own == "b":
-                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH-LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH -
+                                                                                                                                   LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH-LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH -
+                                                                                                                                   LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -187,12 +224,15 @@ def print_circle(pos, num, own, im, drawing):
     elif 13 <= pos < 19:
         for i in range(num):
             if i > 4:
-                drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 3.5, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font = font_num, fill = BLACK)
+                drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 3.5, T_MARGIN +
+                              RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
                 break
             if own == "b":
-                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) * PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) *
+                                 PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) * PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) *
+                                 PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
@@ -201,19 +241,24 @@ def print_circle(pos, num, own, im, drawing):
     elif 19 <= pos < 25:
         for i in range(num):
             if i > 4:
-                drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN * 2 + MARGIN//2, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font = font_num, fill = BLACK)
+                drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN * 2 +
+                              MARGIN//2, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
                 break
             if own == "b":
-                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN) //
+                                 2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
             elif own == "t":
-                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN)//2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN) //
+                                 2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
                 print("Something wrong!")
                 dummy = input()
                 sys.exit()
     elif pos == 25:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4, (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN *3 // 4), fill = WHITE, outline = BLACK, width = 3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT//4 - MARGIN * 12), str(num), font = font_num, fill = BLACK)
+        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
+                         (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
+        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN //
+                      2, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
     return drawing
 
 
@@ -246,11 +291,15 @@ def draw_pos(XGID, im, drawing):
         sys.exit()
     else:
         if top_num > 0:
-            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH - L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill = CH_GRAY, outline = BLACK, width = 3)
-            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT//4 - MARGIN//2), str(top_num), font = font_num, fill = BLACK)
+            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH -
+                             L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
+            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT //
+                          4 - MARGIN//2), str(top_num), font=font_num, fill=BLACK)
         if bottom_num > 0:
-            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH -PNT_WIDTH - L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
-            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4.5), str(bottom_num), font = font_num, fill = BLACK)
+            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH - PNT_WIDTH -
+                             L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
+            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT*3//4 - PNT_WIDTH -
+                          MARGIN*4.5), str(bottom_num), font=font_num, fill=BLACK)
     return drawing
 
 
@@ -262,75 +311,95 @@ def draw_cube(XGID, im, drawing):
             cube_num = 2**(int(XGID[1])+1)
             d_cube = Image.new('RGBA', (PNT_WIDTH*2 // 3, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(cube_num), font = font_num, fill = BLACK)
+            d_cube_draw.text((0, 0), str(cube_num), font=font_num, fill=BLACK)
             d_cube = d_cube.rotate(180)
-            drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH) + RADIUS+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CLEAR, outline=BLACK, width=5)
+            drawing.rectangle((int(2.5*PNT_WIDTH)+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, int(2.5*PNT_WIDTH) +
+                               RADIUS+MARGIN + L_MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CLEAR, outline=BLACK, width=5)
             if cube_num < 10:
-                im.paste(d_cube, (int(PNT_WIDTH*2.4) + MARGIN + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (int(PNT_WIDTH*2.4) + MARGIN + L_MARGIN,
+                                  HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask=d_cube)
             else:
-                im.paste(d_cube, (int(PNT_WIDTH*2) + int(MARGIN*6.5) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (int(PNT_WIDTH*2) + int(MARGIN*6.5) + L_MARGIN,
+                                  HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask=d_cube)
             return drawing
         if int(XGID[2]) == 1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(cube_num),
+                             font=font_coords, fill=BLACK)
             if cube_num < 10:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH + int(MARGIN * 2.25), HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH + int(MARGIN * 2.25),
+                                  HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             else:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT -
+                                  BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             return drawing
         elif int(XGID[2]) == -1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(cube_num),
+                             font=font_coords, fill=BLACK)
             d_cube = d_cube.rotate(180)
             if cube_num < 10:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4), T_MARGIN + MARGIN), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4),
+                                  T_MARGIN + MARGIN), mask=d_cube)
             else:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 2.1), T_MARGIN + MARGIN), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH -
+                                  int(MARGIN * 2.1), T_MARGIN + MARGIN), mask=d_cube)
             return drawing
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(64), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(64), font=font_coords, fill=BLACK)
             d_cube = d_cube.rotate(90)
-            im.paste(d_cube, (PNT_WIDTH * 6 + int(MARGIN*0.4), HEIGHT // 2 - MARGIN * 6), mask = d_cube)
+            im.paste(d_cube, (PNT_WIDTH * 6 + int(MARGIN*0.4),
+                              HEIGHT // 2 - MARGIN * 6), mask=d_cube)
             return drawing
     elif int(XGID[3]) == -1:
         cube_num = 2**(int(XGID[1]))
         if XGID[4] == "DD":
             cube_num = 2**(int(XGID[1])+1)
-            drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
+            drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(
+                2.5*PNT_WIDTH)+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=WHITE, outline=BLACK, width=5)
             if cube_num < 10:
-                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*3) - int(MARGIN*1.4) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.75)), str(cube_num), font = font_num, fill = BLACK)
+                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*3) - int(MARGIN*1.4) + L_MARGIN,
+                              HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.75)), str(cube_num), font=font_num, fill=BLACK)
             else:
-                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*2.6) + int(MARGIN) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.8)), str(cube_num), font = font_num, fill = BLACK)
+                drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*2.6) + int(MARGIN) + L_MARGIN,
+                              HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.8)), str(cube_num), font=font_num, fill=BLACK)
             return drawing
         if int(XGID[2]) == 1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(cube_num),
+                             font=font_coords, fill=BLACK)
             if cube_num < 10:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH + int(MARGIN * 2.25), HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH + int(MARGIN * 2.25),
+                                  HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             else:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT -
+                                  BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             return drawing
         elif int(XGID[2]) == -1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(cube_num),
+                             font=font_coords, fill=BLACK)
             d_cube = d_cube.rotate(180)
             if cube_num < 10:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4), T_MARGIN + MARGIN), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4),
+                                  T_MARGIN + MARGIN), mask=d_cube)
             else:
-                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 2.1), T_MARGIN + MARGIN), mask = d_cube)
+                im.paste(d_cube, (WIDTH - PNT_WIDTH -
+                                  int(MARGIN * 2.1), T_MARGIN + MARGIN), mask=d_cube)
             return drawing
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
-            d_cube_draw.text((0, 0), str(64), font = font_coords, fill = BLACK)
+            d_cube_draw.text((0, 0), str(64), font=font_coords, fill=BLACK)
             d_cube = d_cube.rotate(90)
-            im.paste(d_cube, (PNT_WIDTH * 6 + int(MARGIN*0.4), HEIGHT // 2 - MARGIN * 6), mask = d_cube)
+            im.paste(d_cube, (PNT_WIDTH * 6 + int(MARGIN*0.4),
+                              HEIGHT // 2 - MARGIN * 6), mask=d_cube)
             return drawing
     else:
         print("Doubling cube Error")
@@ -338,47 +407,74 @@ def draw_cube(XGID, im, drawing):
         sys.exit()
 
 # functions for drawing normal cube
+
+
 def dice_make(num, order):
     SPACE = 20
     DOTS = 16
     DIFF = 2
     if order == 'b':
-        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF, PNT_WIDTH - SPACE + DIFF), WHITE)
+        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF,
+                                  PNT_WIDTH - SPACE + DIFF), WHITE)
     else:
-        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF, PNT_WIDTH - SPACE + DIFF), CH_GRAY)
+        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF,
+                                  PNT_WIDTH - SPACE + DIFF), CH_GRAY)
     dice_draw = ImageDraw.Draw(dice)
-    dice_draw.rectangle((0, 0, PNT_WIDTH - SPACE, PNT_WIDTH - SPACE), outline = BLACK, width = 5)
+    dice_draw.rectangle(
+        (0, 0, PNT_WIDTH - SPACE, PNT_WIDTH - SPACE), outline=BLACK, width=5)
     if num == 1:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2), fill=BLACK)
     elif num == 2:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
     elif num == 3:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
     elif num == 4:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
     elif num == 5:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
     elif num == 6:
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
-        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
+                           (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
     else:
         print("Dice Cube Error!")
         sys.exit()
     return dice
+
 
 def draw_dice(XGID, im, drawing):
     if int(XGID[3]) == 1:
@@ -400,8 +496,10 @@ def draw_dice(XGID, im, drawing):
             sys.exit()
         dice1_im = dice_make(int(dice1), 'b')
         dice2_im = dice_make(int(dice2), 'b')
-        im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
-        im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
+        im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN,
+                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
+        im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN,
+                            HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
     elif int(XGID[3]) == -1:
         if XGID[4] == "00":
@@ -421,8 +519,10 @@ def draw_dice(XGID, im, drawing):
             sys.exit()
         dice1_im = dice_make(int(dice1), 't')
         dice2_im = dice_make(int(dice2), 't')
-        im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
-        im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
+        im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT //
+                            2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
+        im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT //
+                            2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
     else:
         print("Error: Tern incorrect.")
@@ -462,7 +562,8 @@ def gnubg2matchID(gnu):
     for i in range(GNU_MATCH):
         bgID[i] = "".join(list(reversed(bgID[i])))
     bin_num = "".join(bgID)
-    encoded_ID = [int(bin_num[0:6], 2), int(bin_num[6:12], 2), int(bin_num[12:18], 2), int(bin_num[18:24], 2), int(bin_num[24:30], 2), int(bin_num[30:36], 2), int(bin_num[36:42], 2), int(bin_num[42:48], 2), int(bin_num[48:54], 2), int(bin_num[54:60], 2), int(bin_num[60:66], 2), int(bin_num[66:73], 2)]
+    encoded_ID = [int(bin_num[0:6], 2), int(bin_num[6:12], 2), int(bin_num[12:18], 2), int(bin_num[18:24], 2), int(bin_num[24:30], 2), int(bin_num[30:36], 2), int(
+        bin_num[36:42], 2), int(bin_num[42:48], 2), int(bin_num[48:54], 2), int(bin_num[54:60], 2), int(bin_num[60:66], 2), int(bin_num[66:73], 2)]
     for i in range(12):
         binary_str += encode_base64(encoded_ID[i])
     return binary_str
@@ -519,7 +620,8 @@ def matchID2XGID(gnu):
     score_str = ""
     for i in range(len(gnu)):
         binary_str += decode_base64(gnu[i])
-    bgID = [binary_str[0:8], binary_str[8:16], binary_str[16:24], binary_str[24:32],binary_str[32:40], binary_str[40:48], binary_str[48:56], binary_str[56:64], binary_str[64:]]
+    bgID = [binary_str[0:8], binary_str[8:16], binary_str[16:24], binary_str[24:32],
+            binary_str[32:40], binary_str[40:48], binary_str[48:56], binary_str[56:64], binary_str[64:]]
     for i in range(GNU_MATCH):
         bgID[i] = "".join(list(reversed(bgID[i])))
     bin_num = "".join(bgID)
