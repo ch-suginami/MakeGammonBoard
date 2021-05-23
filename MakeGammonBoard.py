@@ -29,6 +29,7 @@ SOFTWARE.
 from PIL import Image, ImageDraw, ImageFont
 
 import sys
+import os
 import string
 import datetime
 
@@ -682,81 +683,93 @@ def matchID2XGID(gnu):
 
 
 def main():
-    XGID = ""
-
-    print(f'Input ID:')
-    inputID = input()
-
-    im = Image.new('RGB', (WIDTH, HEIGHT), WHITE)
-    draw = ImageDraw.Draw(im)
-
-    judge = inputID.split(":")
-
-    if inputID[0:5] == "XGID=":
-        XGID = inputID[5:]
-    elif inputID[0:5] == "bgID=":
-        judge = inputID[5:].split(":")
-        XGID = posID2XGID(judge[0])
-        XGID += matchID2XGID(judge[1])
-        judge = XGID.split(":")
-        if judge[3] == "-1":
-            rev_pos = "".join(list(reversed(judge[0])))
-            judge[0] = rev_pos.swapcase()
-        XGID = ":".join(judge)
-    elif len(judge) == 2:
-        XGID = posID2XGID(judge[0])
-        XGID += matchID2XGID(judge[1])
-        judge = XGID.split(":")
-        if judge[3] == "-1":
-            rev_pos = "".join(list(reversed(judge[0])))
-            judge[0] = rev_pos.swapcase()
-        XGID = ":".join(judge)
-    elif len(judge) == 10:
-        XGID = inputID
-    else:
-        print("ID形式を指定してください([XGID] or [bgID]")
-        sys.exit("Error: Turn Incorrect.")
-
-    XGID = XGID.split(":")
-
-    draw = draw_base(draw)
-    draw = draw_pos(XGID, im, draw)
-    draw = draw_cube(XGID, im, draw)
-    draw = draw_dice(XGID, im, draw)
-
-    if int(XGID[3]) == 1:
-        draw = draw_coords(draw, 'b')
-    elif int(XGID[3]) == -1:
-        draw = draw_coords(draw, 't')
-    else:
-        print("Error: Turn incorrect.")
+    args = sys.argv
+    if len(args) != 2:
+        print("Illegal Number of Arguments!")
         sys.exit()
 
+    XGID = ""
 
-    f_out = datetime.datetime.now()
-    f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
-    im.save("sample.png")
+    with open(args[1], 'r') as f:
+        num = int(f.readline())
+        for qnum in range(num):
+            inputID = f.readline()
 
-    you = int(XGID[5])
-    oppo = int(XGID[6])
-    craw = int(XGID[7])
-    length = int(XGID[8])
-    pnt_you = length - you
-    pnt_oppo = length - oppo
+            im = Image.new('RGB', (WIDTH, HEIGHT), WHITE)
+            draw = ImageDraw.Draw(im)
 
-    if pnt_you == 1 and not craw:
-        craw = "Post Crawfold"
-    elif pnt_oppo == 1 and not craw:
-        craw = "Post Crawfold"
+            judge = inputID.split(":")
 
-    if craw:
-        craw = "Crawfold"
-    else:
-        craw = ""
+            if inputID[0:5] == "XGID=":
+                XGID = inputID[5:]
+            elif inputID[0:5] == "bgID=":
+                judge = inputID[5:].split(":")
+                XGID = posID2XGID(judge[0])
+                XGID += matchID2XGID(judge[1])
+                judge = XGID.split(":")
+                if judge[3] == "-1":
+                    rev_pos = "".join(list(reversed(judge[0])))
+                    judge[0] = rev_pos.swapcase()
+                XGID = ":".join(judge)
+            elif len(judge) == 2:
+                XGID = posID2XGID(judge[0])
+                XGID += matchID2XGID(judge[1])
+                judge = XGID.split(":")
+                if judge[3] == "-1":
+                    rev_pos = "".join(list(reversed(judge[0])))
+                    judge[0] = rev_pos.swapcase()
+                XGID = ":".join(judge)
+            elif len(judge) == 10:
+                XGID = inputID
+            else:
+                print("ID形式を指定してください([XGID] or [bgID]")
+                sys.exit("Error: Turn Incorrect.")
 
-    print(f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}')
-    print(f"Output Completed!")
-    dummy = input()
+            XGID = XGID.split(":")
+
+            draw = draw_base(draw)
+            draw = draw_pos(XGID, im, draw)
+            draw = draw_cube(XGID, im, draw)
+            draw = draw_dice(XGID, im, draw)
+
+            if int(XGID[3]) == 1:
+                draw = draw_coords(draw, 'b')
+            elif int(XGID[3]) == -1:
+                draw = draw_coords(draw, 't')
+            else:
+                print("Error: Turn incorrect.")
+                sys.exit()
+
+            f_base = os.path.splitext(os.path.basename(args[1]))[0]
+
+            if qnum == 0:
+                f_out = 'Q' + f_base + '.png'
+            else:
+                f_out = 'A' + f_base + '_' + qnum + '.png'
+
+            you = int(XGID[5])
+            oppo = int(XGID[6])
+            craw = int(XGID[7])
+            length = int(XGID[8])
+            pnt_you = length - you
+            pnt_oppo = length - oppo
+
+            if pnt_you == 1 and not craw:
+                craw = "Post Crawfold"
+            elif pnt_oppo == 1 and not craw:
+                craw = "Post Crawfold"
+
+            if craw:
+                craw = "Crawfold"
+            else:
+                craw = ""
+
+            text_info = f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}'
+            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_coords, fill = BLACK)
+
+            im.save(f_out)
+
+            print(f"Output Completed!")
 
 if __name__ == '__main__':
     main()
