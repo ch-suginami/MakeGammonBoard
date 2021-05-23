@@ -59,8 +59,6 @@ GNU_MATCH = 9
 # font information
 font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
-#font_dice = ImageFont.truetype('nishiki-teki.ttf', 60)
-
 
 def encode_base64(num):
     BASE64_LIST = []
@@ -87,9 +85,9 @@ def decode_base64(let):
     BASE64_LIST.append("/")
     return (str(bin(BASE64_LIST.index(let)))[2:]).zfill(6)
 
-
+# drawing base lines
 def draw_base(drawing):
-    # each positions
+    # each positions with marble
     for i in range(6):
         if i % 2 == 0:
             drawing.polygon((L_MARGIN + i*PNT_WIDTH, T_MARGIN, L_MARGIN + (i+1)*PNT_WIDTH - PNT_WIDTH//2,
@@ -124,7 +122,7 @@ def draw_base(drawing):
     drawing.line((L_MARGIN + (WIDTH-LR_MARGIN)//2, T_MARGIN, L_MARGIN +
                   (WIDTH-LR_MARGIN)//2, HEIGHT - BT_MARGIN), fill=BLACK, width=5)
 
-    # for taking cube area
+    # for taking cube areas
     drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH,
                   WIDTH - L_MARGIN, T_MARGIN + PNT_WIDTH), fill=BLACK, width=5)
     drawing.line((WIDTH - PNT_WIDTH - L_MARGIN, HEIGHT - PNT_WIDTH - BT_MARGIN,
@@ -140,7 +138,7 @@ def draw_base(drawing):
 
     return drawing
 
-
+# drawing top and bottom coordination numbers
 def draw_coords(drawing, turn):
     for i in range(1, 7):
         if turn == 'b':
@@ -179,8 +177,9 @@ def draw_coords(drawing, turn):
                           POS_L2_MARGIN, HEIGHT - BT_MARGIN - MARGIN), str(i), font=font_coords, fill=BLACK)
     return drawing
 
-
-def print_circle(pos, num, own, im, drawing):
+# drawing checkers
+def print_circle(pos, num, own, drawing):
+    #  on the bar
     if pos == 0:
         drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH -
                                                                                                                          LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill=CH_GRAY, outline=BLACK, width=3)
@@ -254,6 +253,7 @@ def print_circle(pos, num, own, im, drawing):
                 print("Something wrong!")
                 dummy = input()
                 sys.exit()
+    # on the bar
     elif pos == 25:
         drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
                          (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
@@ -261,26 +261,27 @@ def print_circle(pos, num, own, im, drawing):
                       2, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
     return drawing
 
-
+# putting checkers by XGID
 def draw_pos(XGID, im, drawing):
     top_num = 15
     bottom_num = 15
     for i in range(26):
         if XGID[0][i] == "-":
-            pass
+            continue
         else:
             if XGID[0][i] in top_p:
                 ch_num = top_p.index(XGID[0][i]) + 1
                 top_num -= ch_num
-                drawing = print_circle(i, ch_num, "t", im, drawing)
+                drawing = print_circle(i, ch_num, "t", drawing)
             elif XGID[0][i] in bottom_p:
                 ch_num = bottom_p.index(XGID[0][i]) + 1
                 bottom_num -= ch_num
-                drawing = print_circle(i, ch_num, "b", im, drawing)
+                drawing = print_circle(i, ch_num, "b", drawing)
             else:
                 print("Error at XGID positions.")
                 dummy = input()
                 sys.exit()
+    # detecting Errors about number of checkers
     if top_num < 0:
         print("Too small checkers for the top-player!")
         dummy = input()
@@ -289,6 +290,7 @@ def draw_pos(XGID, im, drawing):
         print("Too small checkers for the bottom-player!")
         dummy = input()
         sys.exit()
+    # putting checkers on the bar
     else:
         if top_num > 0:
             drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH -
@@ -302,7 +304,7 @@ def draw_pos(XGID, im, drawing):
                           MARGIN*4.5), str(bottom_num), font=font_num, fill=BLACK)
     return drawing
 
-
+# drawing rolling cubes
 def draw_cube(XGID, im, drawing):
     if int(XGID[3]) == 1:
         cube_num = 2**(int(XGID[1]))
@@ -322,6 +324,7 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (int(PNT_WIDTH*2) + int(MARGIN*6.5) + L_MARGIN,
                                   HEIGHT//2 - PNT_WIDTH//2 - int(MARGIN*0.5)), mask=d_cube)
             return drawing
+        # on the  bottom player
         if int(XGID[2]) == 1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -334,6 +337,7 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT -
                                   BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             return drawing
+        # on the top player
         elif int(XGID[2]) == -1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -347,6 +351,7 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (WIDTH - PNT_WIDTH -
                                   int(MARGIN * 2.1), T_MARGIN + MARGIN), mask=d_cube)
             return drawing
+        # doubling cube is on the center position
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -357,6 +362,7 @@ def draw_cube(XGID, im, drawing):
             return drawing
     elif int(XGID[3]) == -1:
         cube_num = 2**(int(XGID[1]))
+        # show double
         if XGID[4] == "DD":
             cube_num = 2**(int(XGID[1])+1)
             drawing.rectangle((WIDTH//2+int(2.5*PNT_WIDTH)+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2+int(
@@ -368,6 +374,7 @@ def draw_cube(XGID, im, drawing):
                 drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*2.6) + int(MARGIN) + L_MARGIN,
                               HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.8)), str(cube_num), font=font_num, fill=BLACK)
             return drawing
+        # on the bottom player
         if int(XGID[2]) == 1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -380,6 +387,7 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT -
                                   BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask=d_cube)
             return drawing
+        # on the top player
         elif int(XGID[2]) == -1:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -393,6 +401,7 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (WIDTH - PNT_WIDTH -
                                   int(MARGIN * 2.1), T_MARGIN + MARGIN), mask=d_cube)
             return drawing
+        # doubling cube is on the center
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
             d_cube_draw = ImageDraw.Draw(d_cube)
@@ -401,14 +410,13 @@ def draw_cube(XGID, im, drawing):
             im.paste(d_cube, (PNT_WIDTH * 6 + int(MARGIN*0.4),
                               HEIGHT // 2 - MARGIN * 6), mask=d_cube)
             return drawing
+    # Error exceptions
     else:
         print("Doubling cube Error")
         dummy = input()
         sys.exit()
 
-# functions for drawing normal cube
-
-
+# functions for making normal cube
 def dice_make(num, order):
     SPACE = 20
     DOTS = 16
@@ -470,15 +478,16 @@ def dice_make(num, order):
                            (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
         dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2,
                            (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
+    # Error Exceptions
     else:
         print("Dice Cube Error!")
         sys.exit()
     return dice
 
-
+# drawing dice
 def draw_dice(XGID, im, drawing):
     if int(XGID[3]) == 1:
-        # no cide
+        # no dide
         if XGID[4] == "00":
             return drawing
         # doubling -> pass
@@ -502,6 +511,7 @@ def draw_dice(XGID, im, drawing):
                             HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
     elif int(XGID[3]) == -1:
+        # no dice
         if XGID[4] == "00":
             return drawing
         # doubling -> pass
@@ -524,27 +534,20 @@ def draw_dice(XGID, im, drawing):
         im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT //
                             2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
+    # Error Exceptions
     else:
         print("Error: Tern incorrect.")
         dummy = input()
         sys.exit()
 
-
+# converting gnubg position information to posID
 def gnubg2posID(gnu):
-    #  new_bgID = [_ for _ in range(GNU_POS)]
     encoded_ID = [_ for _ in range(14)]
-#  hex_ID = ""
     binary_str = ""
     bgID = [gnu[0:8], gnu[8:16], gnu[16:24], gnu[24:32], gnu[32:40],
             gnu[40:48], gnu[48:56], gnu[56:64], gnu[64:72], gnu[72:80]]
     for i in range(GNU_POS):
         bgID[i] = "".join(list(reversed(bgID[i])))
-#    new_bgID[i] = hex(int(str(bgID[i]), 2))
-#  for i in range(GNU_POS):
-#    if len(new_bgID[i]) == 4:
-#      hex_ID += new_bgID[i][2:4]
-#    else:
-#      hex_ID += "0" + new_bgID[i][2]
     for i in range(GNU_POS):
         bin_num = "".join(bgID)
     encoded_ID = [int(bin_num[0:6], 2), int(bin_num[6:12], 2), int(bin_num[12:18], 2), int(bin_num[18:24], 2), int(bin_num[24:30], 2), int(bin_num[30:36], 2), int(bin_num[36:42], 2), int(
@@ -553,7 +556,7 @@ def gnubg2posID(gnu):
         binary_str += encode_base64(encoded_ID[i])
     return binary_str
 
-
+# converting gnubg match information to matchID
 def gnubg2matchID(gnu):
     encoded_ID = [_ for _ in range(14)]
     binary_str = ""
@@ -568,7 +571,7 @@ def gnubg2matchID(gnu):
         binary_str += encode_base64(encoded_ID[i])
     return binary_str
 
-
+# converting posID to XGID
 def posID2XGID(gnu):
     binary_str = ""
     turn = False
@@ -614,7 +617,7 @@ def posID2XGID(gnu):
     pos_checker = "".join(pos_checker) + ":"
     return pos_checker
 
-
+# converting matchID to XGID
 def matchID2XGID(gnu):
     binary_str = ""
     score_str = ""
@@ -625,7 +628,6 @@ def matchID2XGID(gnu):
     for i in range(GNU_MATCH):
         bgID[i] = "".join(list(reversed(bgID[i])))
     bin_num = "".join(bgID)
-
     cube = '0b' + "".join(list(reversed(bin_num[0:4])))
     cube = int(cube, 0)
     cube_own = bin_num[4:6]
@@ -679,78 +681,82 @@ def matchID2XGID(gnu):
     return score_str
 
 
-XGID = ""
+def main():
+    XGID = ""
 
-print(f'Input ID:')
-inputID = input()
+    print(f'Input ID:')
+    inputID = input()
 
-im = Image.new('RGB', (WIDTH, HEIGHT), WHITE)
-draw = ImageDraw.Draw(im)
+    im = Image.new('RGB', (WIDTH, HEIGHT), WHITE)
+    draw = ImageDraw.Draw(im)
 
-judge = inputID.split(":")
+    judge = inputID.split(":")
 
-if inputID[0:5] == "XGID=":
-    XGID = inputID[5:]
-elif inputID[0:5] == "bgID=":
-    judge = inputID[5:].split(":")
-    XGID = posID2XGID(judge[0])
-    XGID += matchID2XGID(judge[1])
-    judge = XGID.split(":")
-    if judge[3] == "-1":
-        rev_pos = "".join(list(reversed(judge[0])))
-        judge[0] = rev_pos.swapcase()
-    XGID = ":".join(judge)
-elif len(judge) == 2:
-    XGID = posID2XGID(judge[0])
-    XGID += matchID2XGID(judge[1])
-    judge = XGID.split(":")
-    if judge[3] == "-1":
-        rev_pos = "".join(list(reversed(judge[0])))
-        judge[0] = rev_pos.swapcase()
-    XGID = ":".join(judge)
-elif len(judge) == 10:
-    XGID = inputID
-else:
-    print("ID形式を指定してください([XGID] or [bgID]")
-    sys.exit("Error: Turn Incorrect.")
+    if inputID[0:5] == "XGID=":
+        XGID = inputID[5:]
+    elif inputID[0:5] == "bgID=":
+        judge = inputID[5:].split(":")
+        XGID = posID2XGID(judge[0])
+        XGID += matchID2XGID(judge[1])
+        judge = XGID.split(":")
+        if judge[3] == "-1":
+            rev_pos = "".join(list(reversed(judge[0])))
+            judge[0] = rev_pos.swapcase()
+        XGID = ":".join(judge)
+    elif len(judge) == 2:
+        XGID = posID2XGID(judge[0])
+        XGID += matchID2XGID(judge[1])
+        judge = XGID.split(":")
+        if judge[3] == "-1":
+            rev_pos = "".join(list(reversed(judge[0])))
+            judge[0] = rev_pos.swapcase()
+        XGID = ":".join(judge)
+    elif len(judge) == 10:
+        XGID = inputID
+    else:
+        print("ID形式を指定してください([XGID] or [bgID]")
+        sys.exit("Error: Turn Incorrect.")
 
-XGID = XGID.split(":")
+    XGID = XGID.split(":")
 
-draw = draw_base(draw)
-draw = draw_pos(XGID, im, draw)
-draw = draw_cube(XGID, im, draw)
-draw = draw_dice(XGID, im, draw)
+    draw = draw_base(draw)
+    draw = draw_pos(XGID, im, draw)
+    draw = draw_cube(XGID, im, draw)
+    draw = draw_dice(XGID, im, draw)
 
-if int(XGID[3]) == 1:
-    draw = draw_coords(draw, 'b')
-elif int(XGID[3]) == -1:
-    draw = draw_coords(draw, 't')
-else:
-    print("Error: Turn incorrect.")
-    sys.exit()
+    if int(XGID[3]) == 1:
+        draw = draw_coords(draw, 'b')
+    elif int(XGID[3]) == -1:
+        draw = draw_coords(draw, 't')
+    else:
+        print("Error: Turn incorrect.")
+        sys.exit()
 
 
-f_out = datetime.datetime.now()
-f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
-im.save("sample.png")
+    f_out = datetime.datetime.now()
+    f_out = f_out.strftime('%Y%m%d-%H%M%S') + '.png'
+    im.save("sample.png")
 
-you = int(XGID[5])
-oppo = int(XGID[6])
-craw = int(XGID[7])
-length = int(XGID[8])
-pnt_you = length - you
-pnt_oppo = length - oppo
+    you = int(XGID[5])
+    oppo = int(XGID[6])
+    craw = int(XGID[7])
+    length = int(XGID[8])
+    pnt_you = length - you
+    pnt_oppo = length - oppo
 
-if pnt_you == 1 and not craw:
-    craw = "Post Crawfold"
-elif pnt_oppo == 1 and not craw:
-    craw = "Post Crawfold"
+    if pnt_you == 1 and not craw:
+        craw = "Post Crawfold"
+    elif pnt_oppo == 1 and not craw:
+        craw = "Post Crawfold"
 
-if craw:
-    craw = "Crawfold"
-else:
-    craw = ""
+    if craw:
+        craw = "Crawfold"
+    else:
+        craw = ""
 
-print(f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}')
-print(f"Output Completed!")
-dummy = input()
+    print(f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}')
+    print(f"Output Completed!")
+    dummy = input()
+
+if __name__ == '__main__':
+    main()
