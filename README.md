@@ -1,31 +1,39 @@
 # MakeGammonBoard
 
-English version is [here](README_EN.md).
+~~English version is here.~~
+
+English version is now reconstructing, Sorry.
 
 バックギャモンの任意の盤面図を以下のような白黒画像で作成するソフト。
 
-ただし画像サイズは`1400x1200`ピクセルで固定であり、変更はできません。
+ただし画像サイズは`1420x1300`ピクセルで固定であり、変更はできません。
 
-`XGID=-BBBaBC---aaB------dcbc--B:2:1:1:32:0:0:0:7:10`
+## サンプル画像
 
-![board](gammon_sample.png)
+![board](Q0001.png)
 
-キューブ提示も示せるようになりました。(v1.1以降)
+# 最新版の必要環境
+Python3
 
-`XGID=--Ca-BBBBa--b-B----cbBf---:2:1:1:DD:0:0:0:5:3`
+## 実行方法
+`python3 MakeGammonBoard.py <input file by .txt>`
 
-![board2](gammon_sample2.png)
+### テキストの書き方
+#### 1行目
+出力する画像の枚数を指定します。
 
-# 実行方法(バージョン1.21まで)
+#### 2行目
+問題として出題する画像のIDを指定します。
+
+#### 3行目以降
+答えとして出題する画像のIDを指定します。入力ファイル名の後に`_`付きで１から連番出力されます。
+
+# 実行方法(実行ファイル形式・バージョン1.21まで)
 ## Windowsの場合
 MakeGammonBoard.exeをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
 
-→バージョン1.20よりgnubgのgnuIDにも対応しました。
-
 ## Macの場合
 MakeGammonBoardをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
-
-→バージョン1.20よりgnubgのgnuIDにも対応しました。
 
 ## 使い方
 次の2通りの方法があります。
@@ -77,13 +85,12 @@ XGIDはチェッカーの位置情報とキューブ、手番情報を1行に持
 + 最後の26番目の数字は、**下側プレーヤーのオン・ザ・バーにあるチェッカーの個数** を表します。
 
 # ライセンス
-~~GPL-3.0 License に従います。~~
+MITライセンスに従います。
 
-MITライセンスへ変更しました。
 This software is released under the MIT License.
 
 # 今後の予定
-現在のところなし。
+実行ファイル形式のキューブ情報のバグ修正。
 
 # 不具合の場合
 Issueを立てるか、[Twitter(@ch_suginami)](https://twitter.com/ch_suginami)までご連絡ください。

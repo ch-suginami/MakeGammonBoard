@@ -59,6 +59,7 @@ GNU_MATCH = 9
 # font information
 font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
+font_info = ImageFont.truetype('SourceHanSans-Normal.otf', 40)
 
 def encode_base64(num):
     BASE64_LIST = []
@@ -755,18 +756,18 @@ def main():
             pnt_you = length - you
             pnt_oppo = length - oppo
 
-            if pnt_you == 1 and not craw:
-                craw = "Post Cr"
-            elif pnt_oppo == 1 and not craw:
-                craw = "Post Cr"
-
             if craw:
-                craw = "Cr"
+                craw = "[Crawford]"
             else:
                 craw = ""
 
-            text_info = f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}'
-            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_num, fill = BLACK)
+            if pnt_you == 1 and not craw:
+                craw = "[Post Crawford]"
+            elif pnt_oppo == 1 and not craw:
+                craw = "[Post Crawford]"
+
+            text_info = f'Match: {length} Point(s).  Score: Bottom {oppo}({pnt_oppo} away) - {you}({pnt_you} away) Top {craw}'
+            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_info, fill = BLACK)
 
             im.save(f_out)
 
