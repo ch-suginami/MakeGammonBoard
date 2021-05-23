@@ -756,12 +756,12 @@ def main():
             pnt_oppo = length - oppo
 
             if pnt_you == 1 and not craw:
-                craw = "Post Crawfold"
+                craw = "Post Cr"
             elif pnt_oppo == 1 and not craw:
-                craw = "Post Crawfold"
+                craw = "Post Cr"
 
             if craw:
-                craw = "Crawfold"
+                craw = "Cr"
             else:
                 craw = ""
 
