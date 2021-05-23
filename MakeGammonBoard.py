@@ -31,7 +31,6 @@ from PIL import Image, ImageDraw, ImageFont
 import sys
 import os
 import string
-import datetime
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
@@ -695,6 +694,8 @@ def main():
         for qnum in range(num):
             inputID = f.readline()
 
+            inputID = inputID.replace('\n', '')
+
             im = Image.new('RGB', (WIDTH, HEIGHT), WHITE)
             draw = ImageDraw.Draw(im)
 
@@ -745,7 +746,7 @@ def main():
             if qnum == 0:
                 f_out = 'Q' + f_base + '.png'
             else:
-                f_out = 'A' + f_base + '_' + qnum + '.png'
+                f_out = 'A' + f_base + '_' + str(qnum) + '.png'
 
             you = int(XGID[5])
             oppo = int(XGID[6])
@@ -765,7 +766,7 @@ def main():
                 craw = ""
 
             text_info = f'Match: {length} Point(s).   Score: {you}({pnt_you} away) - {oppo}({pnt_oppo} away) {craw}'
-            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_coords, fill = BLACK)
+            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_num, fill = BLACK)
 
             im.save(f_out)
 
