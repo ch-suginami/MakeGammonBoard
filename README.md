@@ -43,8 +43,8 @@ MakeGammonBoardをダブルクリックなどで起動すると、別画面が�
 ## 使い方
 次の2通りの方法があります。
 
-1. バックギャモンソフト[eXtreme Gammon](www.extremegammon.com)で使われるXGIDを張り付けて実行する。コピーは盤面上で`Ctrl+Shift+C`でできる。
-2. バックギャモン(無料)ソフト[gnuBackgammon](https://www.gnu.org/software/gnubg/manual/)で使われるgnuIDを張り付けて実行する。コピーは盤面上で`Ctrl+C`でできる。
+1. バックギャモンソフト[eXtreme Gammon](www.extremegammon.com)で使われるXGIDを張り付けて実行する。コピーは盤面上で`Ctrl+Shift+C`でできます。
+2. バックギャモン(無料)ソフト[gnuBackgammon](https://www.gnu.org/software/gnubg/manual/)で使われるgnuIDを張り付けて実行する。コピーは盤面上で`Ctrl+C`でできます。
 
 →バージョン1.21より出力ファイル名は時刻表記へ変更されました。
 
