@@ -61,6 +61,7 @@ font_coords = ImageFont.truetype('SourceHanSans-Normal.otf', 72)
 font_num = ImageFont.truetype('SourceHanSans-Normal.otf', 56)
 font_info = ImageFont.truetype('SourceHanSans-Normal.otf', 40)
 
+
 def encode_base64(num):
     BASE64_LIST = []
     for i in string.ascii_uppercase:
@@ -87,6 +88,8 @@ def decode_base64(let):
     return (str(bin(BASE64_LIST.index(let)))[2:]).zfill(6)
 
 # drawing base lines
+
+
 def draw_base(drawing):
     # each positions with marble
     for i in range(6):
@@ -140,6 +143,8 @@ def draw_base(drawing):
     return drawing
 
 # drawing top and bottom coordination numbers
+
+
 def draw_coords(drawing, turn):
     for i in range(1, 7):
         if turn == 'b':
@@ -179,6 +184,8 @@ def draw_coords(drawing, turn):
     return drawing
 
 # drawing checkers
+
+
 def print_circle(pos, num, own, drawing):
     #  on the bar
     if pos == 0:
@@ -263,6 +270,8 @@ def print_circle(pos, num, own, drawing):
     return drawing
 
 # putting checkers by XGID
+
+
 def draw_pos(XGID, im, drawing):
     top_num = 15
     bottom_num = 15
@@ -306,6 +315,8 @@ def draw_pos(XGID, im, drawing):
     return drawing
 
 # drawing rolling cubes
+
+
 def draw_cube(XGID, im, drawing):
     if int(XGID[3]) == 1:
         cube_num = 2**(int(XGID[1]))
@@ -418,6 +429,8 @@ def draw_cube(XGID, im, drawing):
         sys.exit()
 
 # functions for making normal cube
+
+
 def dice_make(num, order):
     SPACE = 20
     DOTS = 16
@@ -486,6 +499,8 @@ def dice_make(num, order):
     return dice
 
 # drawing dice
+
+
 def draw_dice(XGID, im, drawing):
     if int(XGID[3]) == 1:
         # no dide
@@ -542,6 +557,8 @@ def draw_dice(XGID, im, drawing):
         sys.exit()
 
 # converting gnubg position information to posID
+
+
 def gnubg2posID(gnu):
     encoded_ID = [_ for _ in range(14)]
     binary_str = ""
@@ -558,6 +575,8 @@ def gnubg2posID(gnu):
     return binary_str
 
 # converting gnubg match information to matchID
+
+
 def gnubg2matchID(gnu):
     encoded_ID = [_ for _ in range(14)]
     binary_str = ""
@@ -573,6 +592,8 @@ def gnubg2matchID(gnu):
     return binary_str
 
 # converting posID to XGID
+
+
 def posID2XGID(gnu):
     binary_str = ""
     turn = False
@@ -619,6 +640,8 @@ def posID2XGID(gnu):
     return pos_checker
 
 # converting matchID to XGID
+
+
 def matchID2XGID(gnu):
     binary_str = ""
     score_str = ""
@@ -767,11 +790,13 @@ def main():
                 craw = "[Post Crawford]"
 
             text_info = f'Match: {length} Point(s).  Score: Bottom {oppo}({pnt_oppo} away) - {you}({pnt_you} away) Top {craw}'
-            draw.text((L_MARGIN, HEIGHT - T_MARGIN), text_info, font = font_info, fill = BLACK)
+            draw.text((L_MARGIN, HEIGHT - T_MARGIN),
+                      text_info, font=font_info, fill=BLACK)
 
             im.save(f_out)
 
             print(f'{f_out} Output Completed')
+
 
 if __name__ == '__main__':
     main()
