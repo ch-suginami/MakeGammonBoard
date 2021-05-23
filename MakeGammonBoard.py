@@ -770,7 +770,7 @@ def main():
 
             im.save(f_out)
 
-            print(f"Output Completed!")
+            print(f'{f_out} Output Completed')
 
 if __name__ == '__main__':
     main()
