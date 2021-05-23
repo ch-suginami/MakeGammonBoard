@@ -1,7 +1,4 @@
 # MakeGammonBoard
-
-~~English version is here.~~
-
 English version is now reconstructing, Sorry.
 
 バックギャモンの任意の盤面図を以下のような白黒画像で作成するソフト。
