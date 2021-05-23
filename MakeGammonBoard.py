@@ -337,6 +337,48 @@ def draw_cube(XGID, im, drawing):
         dummy = input()
         sys.exit()
 
+# functions for drawing normal cube
+def dice_make(num, order):
+    SPACE = 20
+    DOTS = 16
+    DIFF = 2
+    if order == 'b':
+        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF, PNT_WIDTH - SPACE + DIFF), WHITE)
+    else:
+        dice = Image.new('RGBA', (PNT_WIDTH - SPACE + DIFF, PNT_WIDTH - SPACE + DIFF), CH_GRAY)
+    dice_draw = ImageDraw.Draw(dice)
+    dice_draw.rectangle((0, 0, PNT_WIDTH - SPACE, PNT_WIDTH - SPACE), outline = BLACK, width = 5)
+    if num == 1:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
+    elif num == 2:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+    elif num == 3:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+    elif num == 4:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+    elif num == 5:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 2 - DOTS // 2, (PNT_WIDTH - SPACE) //2 + DOTS // 2, (PNT_WIDTH - SPACE)// 2 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+    elif num == 6:
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE)// 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) * 3 // 4 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+        dice_draw.ellipse(((PNT_WIDTH - SPACE) // 2 - DOTS//2, (PNT_WIDTH - SPACE) * 3 // 4 - DOTS // 2, (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2),fill = BLACK)
+    else:
+        print("Dice Cube Error!")
+        sys.exit()
+    return dice
 
 def draw_dice(XGID, im, drawing):
     if int(XGID[3]) == 1:
@@ -356,10 +398,8 @@ def draw_dice(XGID, im, drawing):
             print("Error: Cube2 number.")
             dummy = input()
             sys.exit()
-        dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
-        dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
-        drawing.rectangle((WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 + 2*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
-        drawing.rectangle((WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, WIDTH//2 + 3*PNT_WIDTH+RADIUS+MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), outline=BLACK, width=5)
+        dice1_im = dice_make(int(dice1), 'b')
+        dice2_im = dice_make(int(dice2), 'b')
         im.paste(dice1_im, (WIDTH//2+2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
         im.paste(dice2_im, (WIDTH//2+3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
@@ -379,10 +419,8 @@ def draw_dice(XGID, im, drawing):
             print("Error: Cube2 number.")
             dummy = input()
             sys.exit()
-        dice1_im = Image.open(num_image + "dice_" + dice1 + ".png")
-        dice2_im = Image.open(num_image + "dice_" + dice2 + ".png")
-        drawing.rectangle((2*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 2*PNT_WIDTH+RADIUS + MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
-        drawing.rectangle((3*PNT_WIDTH+MARGIN, HEIGHT//2-PNT_WIDTH//2+MARGIN, 3*PNT_WIDTH+RADIUS + MARGIN, HEIGHT//2-PNT_WIDTH//2+RADIUS+MARGIN), fill=CH_GRAY, outline=BLACK, width=5)
+        dice1_im = dice_make(int(dice1), 't')
+        dice2_im = dice_make(int(dice2), 't')
         im.paste(dice1_im, (2*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice1_im)
         im.paste(dice2_im, (3*PNT_WIDTH+MARGIN, HEIGHT // 2-PNT_WIDTH//2+MARGIN), mask=dice2_im)
         return drawing
