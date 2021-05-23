@@ -16,7 +16,7 @@ English version is [here](README_EN.md).
 
 ![board2](gammon_sample2.png)
 
-# 実行方法
+# 実行方法(バージョン1.21まで)
 ## Windowsの場合
 MakeGammonBoard.exeをダブルクリックなどで起動すると、別画面が出てきて`Input ID`と表示されます。
 
