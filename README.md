@@ -10,7 +10,15 @@ English version is now reconstructing, Sorry.
 
 ## サンプル画像
 
-![board](Q0001.png)
+![](sample1.png)
+
+キューブ提示もできます。
+
+![](sample2.png)
+
+クロフォード情報も付加できます。
+
+![](sample3.png)
 
 # 最新版の必要環境
 Python3
@@ -90,7 +98,7 @@ MITライセンスに従います。
 This software is released under the MIT License.
 
 # 今後の予定
-実行ファイル形式のキューブ情報のバグ修正。
+実行ファイル形式のアップデート。
 
 # 不具合の場合
 Issueを立てるか、[Twitter(@ch_suginami)](https://twitter.com/ch_suginami)までご連絡ください。
