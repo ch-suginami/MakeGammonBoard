@@ -280,9 +280,14 @@ def draw_cube(XGID, im, drawing):
                 im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
             return drawing
         elif int(XGID[2]) == -1:
-            num_im = Image.open(num_image + str(cube_num) + ".png")
-            num_im = num_im.rotate(180)
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, MARGIN), mask=num_im)
+            d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
+            d_cube_draw = ImageDraw.Draw(d_cube)
+            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube = d_cube.rotate(180)
+            if cube_num < 10:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4), T_MARGIN + MARGIN), mask = d_cube)
+            else:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 2.1), T_MARGIN + MARGIN), mask = d_cube)
             return drawing
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
@@ -302,13 +307,23 @@ def draw_cube(XGID, im, drawing):
                 drawing.text(((WIDTH-LR_MARGIN) // 2 + int(PNT_WIDTH*2.6) + int(MARGIN) + L_MARGIN, HEIGHT//2 - PNT_WIDTH//2 + int(MARGIN*0.8)), str(cube_num), font = font_num, fill = BLACK)
             return drawing
         if int(XGID[2]) == 1:
-            num_im = Image.open(num_image + str(cube_num) + ".png")
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN,HEIGHT-PNT_WIDTH+MARGIN), mask=num_im)
+            d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
+            d_cube_draw = ImageDraw.Draw(d_cube)
+            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            if cube_num < 10:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH + int(MARGIN * 2.25), HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
+            else:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH, HEIGHT - BT_MARGIN - PNT_WIDTH - int(MARGIN*0.5)), mask = d_cube)
             return drawing
         elif int(XGID[2]) == -1:
-            num_im = Image.open(num_image + str(cube_num) + ".png")
-            num_im = num_im.rotate(180)
-            im.paste(num_im, (WIDTH-PNT_WIDTH+MARGIN, MARGIN), mask=num_im)
+            d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
+            d_cube_draw = ImageDraw.Draw(d_cube)
+            d_cube_draw.text((0, 0), str(cube_num), font = font_coords, fill = BLACK)
+            d_cube = d_cube.rotate(180)
+            if cube_num < 10:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 4), T_MARGIN + MARGIN), mask = d_cube)
+            else:
+                im.paste(d_cube, (WIDTH - PNT_WIDTH - int(MARGIN * 2.1), T_MARGIN + MARGIN), mask = d_cube)
             return drawing
         elif int(XGID[2]) == 0:
             d_cube = Image.new('RGBA', (PNT_WIDTH, PNT_WIDTH), CLEAR)
@@ -497,7 +512,7 @@ def matchID2XGID(gnu):
         score_str += "0:"
     elif cube_own == "10":
         score_str += "1:"
-    elif cube_own == "01":
+    elif cube_own == "00":
         score_str += "-1:"
     else:
         print("Cube Pos Error!")
@@ -558,8 +573,6 @@ elif len(judge) == 10:
 else:
     print("ID形式を指定してください([XGID] or [bgID]")
     sys.exit("Error: Turn Incorrect.")
-
-print(XGID)
 
 XGID = XGID.split(":")
 
