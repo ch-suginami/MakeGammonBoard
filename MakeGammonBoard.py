@@ -207,7 +207,7 @@ def print_circle(pos, num, own, drawing):
                 drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH -
                                  PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
-                print("Something wrong!")
+                print("Error: Wrong at making right-bottom.")
                 dummy = input()
                 sys.exit()
     # left bottom
@@ -224,7 +224,7 @@ def print_circle(pos, num, own, drawing):
                 drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH -
                                                                                                                                    LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
-                print("Something wrong!")
+                print("Error: Wrong at making left-bottom.")
                 dummy = input()
                 sys.exit()
     # top left
@@ -241,7 +241,7 @@ def print_circle(pos, num, own, drawing):
                 drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) *
                                  PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
-                print("Something wrong!")
+                print("Error: Wrong at making left-upper.")
                 dummy = input()
                 sys.exit()
     # top right
@@ -258,7 +258,7 @@ def print_circle(pos, num, own, drawing):
                 drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN) //
                                  2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=CH_GRAY, outline=BLACK, width=3)
             else:
-                print("Something wrong!")
+                print("Error: Wrong at making right-upper")
                 dummy = input()
                 sys.exit()
     # on the bar
@@ -288,18 +288,12 @@ def draw_pos(XGID, im, drawing):
                 bottom_num -= ch_num
                 drawing = print_circle(i, ch_num, "b", drawing)
             else:
-                print("Error at XGID positions.")
-                dummy = input()
-                sys.exit()
+                return "Error at XGID positions."
     # detecting Errors about number of checkers
     if top_num < 0:
-        print("Too small checkers for the top-player!")
-        dummy = input()
-        sys.exit()
+        return "Error: Too small checkers for the top-player!"
     elif bottom_num < 0:
-        print("Too small checkers for the bottom-player!")
-        dummy = input()
-        sys.exit()
+        return "Error: Too small checkers for the bottom-player!"
     # putting checkers on the bar
     else:
         if top_num > 0:
@@ -424,9 +418,7 @@ def draw_cube(XGID, im, drawing):
             return drawing
     # Error exceptions
     else:
-        print("Doubling cube Error")
-        dummy = input()
-        sys.exit()
+        return "Error: Doubling cube incorrect"
 
 # functions for making normal cube
 
@@ -494,8 +486,7 @@ def dice_make(num, order):
                            (PNT_WIDTH - SPACE) // 2 + DOTS // 2, (PNT_WIDTH - SPACE) * 3 // 4 + DOTS // 2), fill=BLACK)
     # Error Exceptions
     else:
-        print("Dice Cube Error!")
-        sys.exit()
+        return "Error: Dice Error"
     return dice
 
 # drawing dice
