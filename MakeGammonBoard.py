@@ -34,7 +34,7 @@ import string
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
-num_image = "number/"
+#num_image = "number/"
 POINTS = 25
 WIDTH = 1420
 HEIGHT = 1300
@@ -552,7 +552,7 @@ def draw_dice(XGID, im, drawing):
         return drawing
     # Error Exceptions
     else:
-        print("Error: Tern incorrect.")
+        print("Error: Turn incorrect.")
         dummy = input()
         sys.exit()
 
@@ -784,9 +784,9 @@ def main():
             else:
                 craw = ""
 
-            if pnt_you == 1 and not craw:
+            if pnt_you == 1 and not (craw and length == 1):
                 craw = "[Post Crawford]"
-            elif pnt_oppo == 1 and not craw:
+            elif pnt_oppo == 1 and not (craw and length == 1):
                 craw = "[Post Crawford]"
 
             text_info = f'Match: {length} Point(s).  Score: Bottom {oppo}({pnt_oppo} away) - {you}({pnt_you} away) Top {craw}'
