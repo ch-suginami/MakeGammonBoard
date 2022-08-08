@@ -720,6 +720,10 @@ def main():
                 XGID = inputID[5:]
                 if judge[3] == "-1":
                     judge[3] = "1"
+                    if judge[2] == "-1":
+                        judge[2] = "1"
+                    elif judge[2] == "1":
+                        judge[2] = "-1"
                     judge[5], judge[6] = judge[6], judge[5]
                     rev_pos = "".join(list(reversed(judge[0])))
                     judge[0] = rev_pos.swapcase()
@@ -731,6 +735,10 @@ def main():
                 judge = XGID.split(":")
                 if judge[3] == "-1":
                     judge[3] = "1"
+                    if judge[2] == "-1":
+                        judge[2] = "1"
+                    elif judge[2] == "1":
+                        judge[2] = "-1"
                     judge[5], judge[6] = judge[6], judge[5]
                     rev_pos = "".join(list(reversed(judge[0])))
                     judge[0] = rev_pos.swapcase()
@@ -741,6 +749,10 @@ def main():
                 judge = XGID.split(":")
                 if judge[3] == "-1":
                     judge[3] = "1"
+                    if judge[2] == "-1":
+                        judge[2] = "1"
+                    elif judge[2] == "1":
+                        judge[2] = "-1"
                     judge[5], judge[6] = judge[6], judge[5]
                     rev_pos = "".join(list(reversed(judge[0])))
                     judge[0] = rev_pos.swapcase()
