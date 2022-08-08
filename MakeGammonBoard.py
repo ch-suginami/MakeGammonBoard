@@ -782,8 +782,8 @@ def main():
             else:
                 f_out = 'A' + f_base + '_' + str(qnum) + '.png'
 
-            you = int(XGID[5])
-            oppo = int(XGID[6])
+            oppo = int(XGID[5])
+            you = int(XGID[6])
             craw = int(XGID[7])
             length = int(XGID[8])
             pnt_you = length - you
@@ -792,12 +792,12 @@ def main():
             if craw:
                 craw = "[Crawford]"
             else:
-                craw = ""
-
-            if pnt_you == 1 and not (craw and length == 1):
-                craw = "[Post Crawford]"
-            elif pnt_oppo == 1 and not (craw and length == 1):
-                craw = "[Post Crawford]"
+                if pnt_you == 1 and length != 1:
+                    craw = "[Post Crawford]"
+                elif pnt_oppo == 1 and length != 1:
+                    craw = "[Post Crawford]"
+                else:
+                    craw = ""
 
             text_info = f'Match: {length} Point(s).  Score: Bottom {oppo}({pnt_oppo} away) - {you}({pnt_you} away) Top {craw}'
             draw.text((L_MARGIN, HEIGHT - T_MARGIN),
