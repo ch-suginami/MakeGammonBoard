@@ -2,9 +2,9 @@ import sys
 
 class game():
     def __init__(self) -> None:
-        player = [None, None]
-        match_length = 0
-        board = [
+        self.player = [None, None]
+        self.match_length = 0
+        self.board = [
             0,
             -2, 0, 0, 0, 0, 5,
             0, 3, 0, 0, 0, -5,
@@ -12,9 +12,9 @@ class game():
             -5, 0, 0, 0, 0, 2,
             0
         ]
-        score = [0, 0]
-        crawford = False
-        cube = 1
+        self.score = [0, 0]
+        self.crawford = False
+        self.cube = 1
 
     def reset(self) -> None:
         # from bottom player view
@@ -38,7 +38,7 @@ class game():
 
 class notation():
     def __init__(self) -> None:
-        notation = []
+        self.notation = []
 
     def reading_file(self, f_name: str):
         with open(f_name, "r") as f:
@@ -53,10 +53,10 @@ class notation():
 
 class search():
     def __init__(self) -> None:
-        player = ""
-        game = 0
-        cube = None
-        dice = None
+        self.player = ""
+        self.game = 0
+        self.cube = None
+        self.dice = None
 
     def set_player(self, players: list) -> None:
         while True:
@@ -76,7 +76,7 @@ class search():
             except ValueError:
                 print("入力値が不正です")
             else:
-                if not 0 < input_game <= input_game:
+                if not 0 < input_game <= game:
                     print("指定されたゲームは存在しません")
                 else:
                     self.game = input_game
