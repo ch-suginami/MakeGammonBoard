@@ -26,6 +26,7 @@ SOFTWARE.
 
 '''
 
+from re import I
 from PIL import Image, ImageDraw, ImageFont
 
 import sys
@@ -187,19 +188,21 @@ def draw_coords(drawing, turn):
 
 
 def print_circle(pos, num, own, drawing):
-    #  on the bar
+    # on the bar
     if pos == 0:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH -
+        if num >= 10:
+            drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH -
                                                                                                                          LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill=CH_GRAY, outline=BLACK, width=3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2,
-                      HEIGHT*3//4 - MARGIN * 7.7), str(num), font=font_num, fill=BLACK)
+            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH//2 - MARGIN*2,
+                      HEIGHT*3//4 - MARGIN * 8), str(num), font=font_num, fill=BLACK)
+        else:
+            drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT*3//4 - RADIUS//2 - T_MARGIN // 3, (WIDTH -
+                                                                                                                         LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT*3//4 + RADIUS//2 - T_MARGIN // 3), fill=CH_GRAY, outline=BLACK, width=3)
+            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2,
+                      HEIGHT*3//4 - MARGIN * 8), str(num), font=font_num, fill=BLACK)
     # right bottom
     if 0 < pos < 7:
         for i in range(num):
-            if i > 4:
-                drawing.text((WIDTH - PNT_WIDTH*(pos+1) + MARGIN*1.4 + L_MARGIN, HEIGHT -
-                              BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
-                break
             if own == "b":
                 drawing.ellipse((WIDTH - PNT_WIDTH*(pos+1) + MARGIN - L_MARGIN, HEIGHT-RADIUS*(i+1) - BT_MARGIN, WIDTH -
                                  PNT_WIDTH*pos - MARGIN - L_MARGIN, HEIGHT-RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -210,13 +213,18 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-bottom.")
                 dummy = input()
                 sys.exit()
+            if 3 < i:
+                if 10 <= num:
+                    drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN, HEIGHT -
+                              BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
+                    break
+                else:
+                    drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN, HEIGHT -
+                              BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
+                    break
     # left bottom
     elif 7 <= pos < 13:
         for i in range(num):
-            if i > 4:
-                drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 4.6,
-                              HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
-                break
             if own == "b":
                 drawing.ellipse(((WIDTH-LR_MARGIN)//2 - (pos-5)*PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT - BT_MARGIN - RADIUS*(i+1), (WIDTH -
                                                                                                                                    LR_MARGIN)//2 - (pos-6)*PNT_WIDTH - MARGIN + L_MARGIN, HEIGHT - RADIUS*i - BT_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -227,13 +235,18 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-bottom.")
                 dummy = input()
                 sys.exit()
+            if 3 < i:
+                if 10 <= num:
+                    drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 6,
+                              HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
+                    break
+                else:
+                    drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 4.6,
+                              HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
+                    break
     # top left
     elif 13 <= pos < 19:
         for i in range(num):
-            if i > 4:
-                drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 3.5, T_MARGIN +
-                              RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
-                break
             if own == "b":
                 drawing.ellipse(((pos-13)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (pos-12) *
                                  PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -244,13 +257,18 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-upper.")
                 dummy = input()
                 sys.exit()
+            if 3 < i:
+                if 10 <= num:
+                    drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 2, T_MARGIN +
+                              RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
+                    break
+                else:
+                    drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 3.5, T_MARGIN +
+                              RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
+                    break
     # top right
     elif 19 <= pos < 25:
         for i in range(num):
-            if i > 4:
-                drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN * 2 +
-                              MARGIN//2, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
-                break
             if own == "b":
                 drawing.ellipse(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + MARGIN + L_MARGIN, RADIUS*i + T_MARGIN, (WIDTH - LR_MARGIN) //
                                  2 + (pos-18)*PNT_WIDTH - MARGIN + L_MARGIN, RADIUS*(i+1) + T_MARGIN), fill=WHITE, outline=BLACK, width=3)
@@ -261,12 +279,25 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-upper")
                 dummy = input()
                 sys.exit()
+            if 3 < i:
+                if 10 <= num:
+                    drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN + MARGIN, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
+                    break
+                else:
+                    drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN * 2 +
+                              MARGIN//2, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
+                    break
+
     # on the bar
     elif pos == 25:
-        drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
-                         (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
-        drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN //
-                      2, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
+        if num >= 10:
+            drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
+                        (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
+            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH//2 - MARGIN*2, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
+        else:
+            drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
+                        (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
+            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
     return drawing
 
 # putting checkers by XGID
@@ -294,18 +325,30 @@ def draw_pos(XGID, im, drawing):
         return "Error: Too small checkers for the top-player!"
     elif bottom_num < 0:
         return "Error: Too small checkers for the bottom-player!"
-    # putting checkers on the bar
+    # putting checkers off the game
     else:
         if top_num > 0:
-            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH -
-                             L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
-            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT //
-                          4 - MARGIN//2), str(top_num), font=font_num, fill=BLACK)
+            if top_num >= 10:
+                drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH -
+                            L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.text((WIDTH - L_MARGIN - MARGIN*8, HEIGHT //
+                            4 - MARGIN//2), str(top_num), font=font_num, fill=BLACK)
+            else:
+                drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT//4, WIDTH - PNT_WIDTH -
+                            L_MARGIN + MARGIN + RADIUS, HEIGHT//4 + RADIUS), fill=CH_GRAY, outline=BLACK, width=3)
+                drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT //
+                            4 - MARGIN//2), str(top_num), font=font_num, fill=BLACK)
         if bottom_num > 0:
-            drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH - PNT_WIDTH -
-                             L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
-            drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT*3//4 - PNT_WIDTH -
-                          MARGIN*4.5), str(bottom_num), font=font_num, fill=BLACK)
+            if bottom_num >= 10:
+                drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH - PNT_WIDTH -
+                            L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
+                drawing.text((WIDTH - L_MARGIN - MARGIN*8, HEIGHT*3//4 - PNT_WIDTH -
+                            MARGIN*4.5), str(bottom_num), font=font_num, fill=BLACK)
+            else:
+                drawing.ellipse((WIDTH - PNT_WIDTH - L_MARGIN + MARGIN, HEIGHT*3//4 - PNT_WIDTH - MARGIN*4, WIDTH - PNT_WIDTH -
+                            L_MARGIN + MARGIN + RADIUS, HEIGHT*3//4 + RADIUS - PNT_WIDTH - MARGIN*4), fill=WHITE, outline=BLACK, width=3)
+                drawing.text((WIDTH - L_MARGIN - MARGIN*6.5, HEIGHT*3//4 - PNT_WIDTH -
+                            MARGIN*4.5), str(bottom_num), font=font_num, fill=BLACK)
     return drawing
 
 # drawing rolling cubes
