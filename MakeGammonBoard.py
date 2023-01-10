@@ -35,7 +35,6 @@ import string
 
 top_p = [chr(ord("a")+i) for i in range(16)]
 bottom_p = [chr(ord("A")+i) for i in range(16)]
-#num_image = "number/"
 POINTS = 25
 WIDTH = 1420
 HEIGHT = 1300
@@ -213,13 +212,13 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-bottom.")
                 dummy = input()
                 sys.exit()
-            if 3 < i:
+            if 4 < i:
                 if 10 <= num:
                     drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN, HEIGHT -
                               BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
                     break
                 else:
-                    drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN, HEIGHT -
+                    drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN * 2.5, HEIGHT -
                               BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
                     break
     # left bottom
@@ -235,7 +234,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-bottom.")
                 dummy = input()
                 sys.exit()
-            if 3 < i:
+            if 4 < i:
                 if 10 <= num:
                     drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 6,
                               HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
@@ -257,7 +256,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-upper.")
                 dummy = input()
                 sys.exit()
-            if 3 < i:
+            if 4 < i:
                 if 10 <= num:
                     drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 2, T_MARGIN +
                               RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
@@ -279,7 +278,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-upper")
                 dummy = input()
                 sys.exit()
-            if 3 < i:
+            if 4 < i:
                 if 10 <= num:
                     drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN + MARGIN, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
                     break
@@ -297,7 +296,7 @@ def print_circle(pos, num, own, drawing):
         else:
             drawing.ellipse(((WIDTH-LR_MARGIN)//2 - PNT_WIDTH + MARGIN + L_MARGIN, HEIGHT//4 - RADIUS//2 - T_MARGIN * 3 // 4,
                         (WIDTH-LR_MARGIN) // 2 - MARGIN + L_MARGIN, HEIGHT//4 + RADIUS//2 - T_MARGIN * 3 // 4), fill=WHITE, outline=BLACK, width=3)
-            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
+            drawing.text(((WIDTH - LR_MARGIN)//2 - PNT_WIDTH // 2 - MARGIN // 2, HEIGHT//4 - MARGIN * 12), str(num), font=font_num, fill=BLACK)
     return drawing
 
 # putting checkers by XGID
