@@ -212,7 +212,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-bottom.")
                 dummy = input()
                 sys.exit()
-            if 4 < i:
+            if 3 < i:
                 if 10 <= num:
                     drawing.text((WIDTH - PNT_WIDTH*(pos+1) + L_MARGIN, HEIGHT -
                               BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
@@ -234,7 +234,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-bottom.")
                 dummy = input()
                 sys.exit()
-            if 4 < i:
+            if 3 < i:
                 if 10 <= num:
                     drawing.text(((WIDTH - LR_MARGIN) // 2 - PNT_WIDTH * (pos-6) - L_MARGIN - MARGIN * 6,
                               HEIGHT - BT_MARGIN - RADIUS*5 - MARGIN // 3), str(num), font=font_num, fill=BLACK)
@@ -256,7 +256,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making left-upper.")
                 dummy = input()
                 sys.exit()
-            if 4 < i:
+            if 3 < i:
                 if 10 <= num:
                     drawing.text((L_MARGIN + PNT_WIDTH * (pos - 13) + MARGIN * 2, T_MARGIN +
                               RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
@@ -278,7 +278,7 @@ def print_circle(pos, num, own, drawing):
                 print("Error: Wrong at making right-upper")
                 dummy = input()
                 sys.exit()
-            if 4 < i:
+            if 3 < i:
                 if 10 <= num:
                     drawing.text(((WIDTH - LR_MARGIN)//2 + (pos-19)*PNT_WIDTH + POS_L2_MARGIN + MARGIN, T_MARGIN + RADIUS*4 - MARGIN // 4), str(num), font=font_num, fill=BLACK)
                     break
